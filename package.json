@@ -1,5 +1,5 @@
 {
-  "name": "miniature-gnatt-chart",
+  "name": "miniature-gnatt-chart-688f",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -7,7 +7,6 @@
     "dev": "remix dev -c \"npm run dev:serve\"",
     "dev:serve": "binode --require ./mocks -- @remix-run/serve:remix-serve ./build/index.js",
     "format": "prettier --write .",
-    "format:repo": "npm run format && npm run lint -- --fix",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
     "start": "remix-serve ./build/index.js",
@@ -77,7 +76,6 @@
     "prisma": "^5.19.1",
     "start-server-and-test": "^2.0.7",
     "tailwindcss": "^3.4.10",
-    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.3",
@@ -88,6 +86,6 @@
     "node": ">=18.0.0"
   },
   "prisma": {
-    "seed": "ts-node -r tsconfig-paths/register prisma/seed.ts"
+    "seed": "bun -r tsconfig-paths/register prisma/seed.ts"
   }
 }
