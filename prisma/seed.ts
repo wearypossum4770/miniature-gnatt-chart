@@ -2,11 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const reset = () => Promise.all([
-	prisma.user.deleteMany()
-])
+export const reset = () => Promise.all([prisma.user.deleteMany()]);
 
-export const seed = () => Promise.all([])
+export const seed = () => Promise.all([]);
 
 seed()
 	.catch((e) => {
