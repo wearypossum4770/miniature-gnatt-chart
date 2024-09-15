@@ -8,73 +8,73 @@ export const illegalCharacters = new Set<string>([
 ]);
 export const SALT_LENGTH = 10;
 const passwordTypeGuard = (password: unknown): password is string =>
-	typeof password === "string";
+  typeof password === "string";
 
 const passwordEmptyGuard = (password: string): password is string =>
-	password.trim().length > 0;
+  password.trim().length > 0;
 
 const passwordEncodingGuard = (password: string): password is string => {
-	if (!password.isWellFormed()) return false;
-	for (const char of password) {
-		if (illegalCharacters.has(char)) return false;
-	}
-	return true;
+  if (!password.isWellFormed()) return false;
+  for (const char of password) {
+    if (illegalCharacters.has(char)) return false;
+  }
+  return true;
 };
 
 export const safePassword = (password: unknown): string | null | Buffer => {
-	// order matters as we are type narrowing here. Do not change order.
-	if (
-		!passwordTypeGuard(password) ||
-		!passwordEmptyGuard(password) ||
-		!passwordEncodingGuard(password)
-	)
-		return null;
-	return password;
+  // order matters as we are type narrowing here. Do not change order.
+  if (
+    !passwordTypeGuard(password) ||
+    !passwordEmptyGuard(password) ||
+    !passwordEncodingGuard(password)
+  )
+    return null;
+  return password;
 };
 
 export const upgradeInsecureHashAlgorithms = (
-	password: string,
-	upgrade: boolean,
+  password: string,
+  upgrade: boolean,
 ) => {
-	if (!upgrade) return null;
+  if (!upgrade) return null;
 
-	if (password.startsWith("$apr1$")) return EncryptionAlgorithm.ApacheMd5;
-	if (password.startsWith("$2y$")) return EncryptionAlgorithm.Bcrypt;
-	if (password.startsWith("$2x$")) return EncryptionAlgorithm.Bcrypt;
-	return EncryptionAlgorithm.Unknown;
+  if (password.startsWith("$apr1$")) return EncryptionAlgorithm.ApacheMd5;
+  if (password.startsWith("$2y$")) return EncryptionAlgorithm.Bcrypt;
+  if (password.startsWith("$2x$")) return EncryptionAlgorithm.Bcrypt;
+  return EncryptionAlgorithm.Unknown;
 };
 export enum EncryptionAlgorithm {
-	Unknown = 0,
-	Bcrypt = 1,
-	ApacheMd5 = 2,
-	Sha1 = 3,
-	ApacheCrypt = 4,
-	Argon2d = 5,
-	Argon2i = 6,
-	Argon2id = 7,
+  Unknown = 0,
+  Bcrypt = 1,
+  ApacheMd5 = 2,
+  Sha1 = 3,
+  ApacheCrypt = 4,
+  Argon2d = 5,
+  Argon2i = 6,
+  Argon2id = 7,
 }
 
 export const selectEncryptionAlgorithm = (
-	hash: string,
+  hash: string,
 ): EncryptionAlgorithm => {
-	if (hash.startsWith("$apr1$")) return EncryptionAlgorithm.ApacheMd5;
-	if (hash.startsWith("$2y$")) return EncryptionAlgorithm.Bcrypt;
-	return EncryptionAlgorithm.Unknown;
+  if (hash.startsWith("$apr1$")) return EncryptionAlgorithm.ApacheMd5;
+  if (hash.startsWith("$2y$")) return EncryptionAlgorithm.Bcrypt;
+  return EncryptionAlgorithm.Unknown;
 };
 export interface UnregisteredUser {
-	password: string;
+  password: string;
 }
 export type BaseUser = {
-	id: string;
-	email: string;
-	username: string;
-	password: string;
-	usernameIsEmail: boolean;
+  id: string;
+  email: string;
+  username: string;
+  password: string;
+  usernameIsEmail: boolean;
 };
 export type UnauthenticatedUser = {
-	password: string;
-	upgradeInsecureHash: boolean;
-	username: string;
-	hash: string;
+  password: string;
+  upgradeInsecureHash: boolean;
+  username: string;
+  hash: string;
 };
 export type AuthenticatedUser = Omit<BaseUser, "password" | "usernameIsEmail">;

@@ -5,62 +5,62 @@ import { prisma } from "~/db.server";
 
 export type { User } from "@prisma/client";
 import type {
-	BaseUser,
-	PreRegisteredUser,
-	PrivateUserManager,
-	UnauthenticatedUser,
+  BaseUser,
+  PreRegisteredUser,
+  PrivateUserManager,
+  UnauthenticatedUser,
 } from "@/utilities/authentication/config";
 import { hashPassword } from "@/utilities/password-hashers/argon-hasher";
 export async function getUserById(id: User["id"]) {
-	return prisma.user.findUnique({ where: { id } });
+  return prisma.user.findUnique({ where: { id } });
 }
 
 export async function getUserByEmail(email: User["email"]) {
-	return prisma.user.findUnique({ where: { email } });
+  return prisma.user.findUnique({ where: { email } });
 }
 
 export const createUser = async ({
-	username,
-	password,
-	email,
+  username,
+  password,
+  email,
 }: PreRegisteredUser) => {
-	const hash = await hashPassword({ password });
-	if (hash === null) return { id: null };
-	return prisma.user.create({
-		data: { username, email, password: { create: { hash } } },
-	});
+  const hash = await hashPassword({ password });
+  if (hash === null) return { id: null };
+  return prisma.user.create({
+    data: { username, email, password: { create: { hash } } },
+  });
 };
 
 export async function deleteUserByEmail(email: User["email"]) {
-	return prisma.user.delete({ where: { email } });
+  return prisma.user.delete({ where: { email } });
 }
 
 export async function verifyLogin(
-	email: User["email"],
-	password: Password["hash"],
+  email: User["email"],
+  password: Password["hash"],
 ) {
-	const userWithPassword = await prisma.user.findUnique({
-		where: { email },
-		include: {
-			password: true,
-		},
-	});
+  const userWithPassword = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      password: true,
+    },
+  });
 
-	if (!userWithPassword || !userWithPassword.password) {
-		return null;
-	}
+  if (!userWithPassword || !userWithPassword.password) {
+    return null;
+  }
 
-	const isValid = await bcrypt.compare(
-		password,
-		userWithPassword.password.hash,
-	);
+  const isValid = await bcrypt.compare(
+    password,
+    userWithPassword.password.hash,
+  );
 
-	if (!isValid) {
-		return null;
-	}
+  if (!isValid) {
+    return null;
+  }
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { password: _password, ...userWithoutPassword } = userWithPassword;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password: _password, ...userWithoutPassword } = userWithPassword;
 
-	return userWithoutPassword;
+  return userWithoutPassword;
 }
