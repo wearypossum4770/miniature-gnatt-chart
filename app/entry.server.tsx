@@ -20,7 +20,7 @@ export default function handleRequest(
 	responseHeaders: Headers,
 	remixContext: EntryContext,
 ) {
-	const context = { responseStatusCode }
+	const context = { responseStatusCode };
 	return isbot(request.headers.get("user-agent"))
 		? handleBotRequest(
 				request,
@@ -42,7 +42,7 @@ function handleBotRequest(
 	responseHeaders: Headers,
 	remixContext: EntryContext,
 ) {
-	const context = { responseStatusCode }
+	const context = { responseStatusCode };
 	return new Promise((resolve, reject) => {
 		const { abort, pipe } = renderToPipeableStream(
 			<RemixServer
@@ -85,7 +85,7 @@ function handleBrowserRequest(
 	responseHeaders: Headers,
 	remixContext: EntryContext,
 ) {
-	const context = { responseStatusCode }
+	const context = { responseStatusCode };
 	return new Promise((resolve, reject) => {
 		const { abort, pipe } = renderToPipeableStream(
 			<RemixServer

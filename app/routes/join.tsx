@@ -7,13 +7,13 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
+import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username";
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
-import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const userId = await getUserId(request);
-  console.log({userId})
+	console.log({ userId });
 	if (userId) return redirect("/login");
 	return json({});
 };

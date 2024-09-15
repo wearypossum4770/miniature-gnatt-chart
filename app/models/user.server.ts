@@ -5,10 +5,10 @@ import { prisma } from "~/db.server";
 
 export type { User } from "@prisma/client";
 import type {
-	PrivateUserManager,
-	UnauthenticatedUser,
 	BaseUser,
 	PreRegisteredUser,
+	PrivateUserManager,
+	UnauthenticatedUser,
 } from "@/utilities/authentication/config";
 import { hashPassword } from "@/utilities/password-hashers/argon-hasher";
 export async function getUserById(id: User["id"]) {
