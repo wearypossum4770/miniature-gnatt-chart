@@ -15,106 +15,109 @@ import { renderToPipeableStream } from "react-dom/server";
 const ABORT_DELAY = 5_000;
 
 export default function handleRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
+	request: Request,
+	responseStatusCode: number,
+	responseHeaders: Headers,
+	remixContext: EntryContext,
 ) {
-  return isbot(request.headers.get("user-agent"))
-    ? handleBotRequest(
-        request,
-        responseStatusCode,
-        responseHeaders,
-        remixContext,
-      )
-    : handleBrowserRequest(
-        request,
-        responseStatusCode,
-        responseHeaders,
-        remixContext,
-      );
+	const context = { responseStatusCode }
+	return isbot(request.headers.get("user-agent"))
+		? handleBotRequest(
+				request,
+				context.responseStatusCode,
+				responseHeaders,
+				remixContext,
+			)
+		: handleBrowserRequest(
+				request,
+				context.responseStatusCode,
+				responseHeaders,
+				remixContext,
+			);
 }
 
 function handleBotRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
+	request: Request,
+	responseStatusCode: number,
+	responseHeaders: Headers,
+	remixContext: EntryContext,
 ) {
-  return new Promise((resolve, reject) => {
-    const { abort, pipe } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onAllReady() {
-          const body = new PassThrough();
+	const context = { responseStatusCode }
+	return new Promise((resolve, reject) => {
+		const { abort, pipe } = renderToPipeableStream(
+			<RemixServer
+				context={remixContext}
+				url={request.url}
+				abortDelay={ABORT_DELAY}
+			/>,
+			{
+				onAllReady() {
+					const body = new PassThrough();
 
-          responseHeaders.set("Content-Type", "text/html");
+					responseHeaders.set("Content-Type", "text/html");
 
-          resolve(
-            new Response(createReadableStreamFromReadable(body), {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
+					resolve(
+						new Response(createReadableStreamFromReadable(body), {
+							headers: responseHeaders,
+							status: context.responseStatusCode,
+						}),
+					);
 
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          console.error(error);
-        },
-      },
-    );
+					pipe(body);
+				},
+				onShellError(error: unknown) {
+					reject(error);
+				},
+				onError(error: unknown) {
+					context.responseStatusCode = 500;
+					console.error(error);
+				},
+			},
+		);
 
-    setTimeout(abort, ABORT_DELAY);
-  });
+		setTimeout(abort, ABORT_DELAY);
+	});
 }
 
 function handleBrowserRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  remixContext: EntryContext,
+	request: Request,
+	responseStatusCode: number,
+	responseHeaders: Headers,
+	remixContext: EntryContext,
 ) {
-  return new Promise((resolve, reject) => {
-    const { abort, pipe } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onShellReady() {
-          const body = new PassThrough();
+	const context = { responseStatusCode }
+	return new Promise((resolve, reject) => {
+		const { abort, pipe } = renderToPipeableStream(
+			<RemixServer
+				context={remixContext}
+				url={request.url}
+				abortDelay={ABORT_DELAY}
+			/>,
+			{
+				onShellReady() {
+					const body = new PassThrough();
 
-          responseHeaders.set("Content-Type", "text/html");
+					responseHeaders.set("Content-Type", "text/html");
 
-          resolve(
-            new Response(createReadableStreamFromReadable(body), {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
+					resolve(
+						new Response(createReadableStreamFromReadable(body), {
+							headers: responseHeaders,
+							status: context.responseStatusCode,
+						}),
+					);
 
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          console.error(error);
-          responseStatusCode = 500;
-        },
-      },
-    );
+					pipe(body);
+				},
+				onShellError(error: unknown) {
+					reject(error);
+				},
+				onError(error: unknown) {
+					console.error(error);
+					context.responseStatusCode = 500;
+				},
+			},
+		);
 
-    setTimeout(abort, ABORT_DELAY);
-  });
+		setTimeout(abort, ABORT_DELAY);
+	});
 }
