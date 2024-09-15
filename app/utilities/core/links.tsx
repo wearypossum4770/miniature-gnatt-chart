@@ -49,7 +49,7 @@ type MediaLink = {
 	type?: string;
 };
 
-export const generateLinks = (): unknown =>
+export const generateLinks = (): Record<string, any> =>
 	[
 		cssBundleHref ?? "",
 		mainStyle,
