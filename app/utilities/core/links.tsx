@@ -50,7 +50,9 @@ type MediaLink = {
 	type?: string;
 };
 
-export const generateLinks = (): Array<Record<string, unknown> | LinkDescriptor> =>
+export const generateLinks = (): Array<
+	Record<string, unknown> | LinkDescriptor
+> =>
 	[
 		cssBundleHref ?? "",
 		mainStyle,
@@ -58,10 +60,12 @@ export const generateLinks = (): Array<Record<string, unknown> | LinkDescriptor>
 		tableStyle,
 		navigationStyle,
 		formStyle,
-	].reduce((a, href) =>
-		Object.assign(a, {
-			crossOrigin: CrossOriginRequest.Anonymous,
-			rel: "stylesheet",
-			href,
-		}),[]
+	].reduce(
+		(a, href) =>
+			a.concat({
+				crossOrigin: CrossOriginRequest.Anonymous,
+				rel: "stylesheet",
+				href,
+			}),
+		[],
 	);
