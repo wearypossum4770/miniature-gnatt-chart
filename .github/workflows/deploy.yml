@@ -82,14 +82,12 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@v1
 
       - name: 🚀 Deploy Staging
-        environment: development
         if: ${{ github.ref == 'refs/heads/dev' }}
         run: flyctl deploy --remote-only --build-arg COMMIT_SHA=${{ github.sha }} --app ${{ steps.app_name.outputs.value }}-staging
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: 🚀 Deploy Production
-        environment: production
         if: ${{ github.ref == 'refs/heads/main' }}
         run: flyctl deploy --remote-only --build-arg COMMIT_SHA=${{ github.sha }} --app ${{ steps.app_name.outputs.value }}
         env:
