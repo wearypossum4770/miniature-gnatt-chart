@@ -5,7 +5,7 @@ import navigationStyle from "@/styles/navigation.css";
 import tableStyle from "@/styles/table.css";
 
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinkDescriptor } from "@remix-run/node";
+import type { LinkDescriptor, LinksFunction } from "@remix-run/node";
 
 enum DocumentRelationship {
 	Alternate = "alternate",
@@ -50,22 +50,14 @@ type MediaLink = {
 	type?: string;
 };
 
-export const generateLinks = (): Array<
-	Record<string, unknown> | LinkDescriptor
-> =>
-	[
-		cssBundleHref ?? "",
-		mainStyle,
-		modalStyles,
-		tableStyle,
-		navigationStyle,
-		formStyle,
-	].reduce(
-		(a, href) =>
-			a.concat({
-				crossOrigin: CrossOriginRequest.Anonymous,
-				rel: "stylesheet",
-				href,
-			}),
-		[],
-	);
+export const generateLinks: LinksFunction = ()  => [
+	{crossOrigin: "anonymous", rel: "stylesheet", href: mainStyle},
+	{crossOrigin: "anonymous", rel: "stylesheet", href: modalStyles},
+	{crossOrigin: "anonymous", rel: "stylesheet", href: tableStyle},
+	{crossOrigin: "anonymous", rel: "stylesheet", href: navigationStyle},
+	{crossOrigin: "anonymous", rel: "stylesheet", href: formStyle},
+	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ];
+	  
+	
+	

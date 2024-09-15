@@ -10,10 +10,16 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 
-import { generateLinks } from "@/utilities/core/links";
+import formStyle from "@/styles/forms.css";
+import mainStyle from "@/styles/main.css";
+import modalStyles from "@/styles/modals.css";
+import navigationStyle from "@/styles/navigation.css";
+import tableStyle from "@/styles/table.css";
 
-export const links: LinksFunction = () => generateLinks();
-
+export const links: LinksFunction = () => [
+	{ rel: "stylesheet", href: formStyle },
+	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ];
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return json({ ok: true });
 };
