@@ -5,6 +5,7 @@ import navigationStyle from "@/styles/navigation.css";
 import tableStyle from "@/styles/table.css";
 
 import { cssBundleHref } from "@remix-run/css-bundle";
+import { LinkDescriptor } from "@remix-run/node";
 
 enum DocumentRelationship {
 	Alternate = "alternate",
@@ -49,7 +50,7 @@ type MediaLink = {
 	type?: string;
 };
 
-export const generateLinks = (): Record<string, any> =>
+export const generateLinks = (): Record<string, unknown>|LinkDescriptor =>
 	[
 		cssBundleHref ?? "",
 		mainStyle,
