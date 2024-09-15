@@ -50,7 +50,7 @@ type MediaLink = {
 	type?: string;
 };
 
-export const generateLinks = (): Record<string, unknown> | LinkDescriptor =>
+export const generateLinks = (): Array<Record<string, unknown> | LinkDescriptor> =>
 	[
 		cssBundleHref ?? "",
 		mainStyle,
@@ -63,5 +63,5 @@ export const generateLinks = (): Record<string, unknown> | LinkDescriptor =>
 			crossOrigin: CrossOriginRequest.Anonymous,
 			rel: "stylesheet",
 			href,
-		}),
+		}),[]
 	);
