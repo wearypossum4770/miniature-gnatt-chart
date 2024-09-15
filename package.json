@@ -15,6 +15,7 @@
     "test:e2e:dev": "start-server-and-test dev http://localhost:3000",
     "pretest:e2e:run": "npm run build",
     "typecheck": "tsc",
+    "docker:lint": "docker run --rm -i hadolint/hadolint < Dockerfile",
     "validate": "npm-run-all --parallel \"test -- --run\" lint typecheck"
   },
   "eslintIgnore": ["/node_modules", "/build", "/public/build"],
