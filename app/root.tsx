@@ -19,7 +19,7 @@ import tableStyle from "@/styles/table.css";
 export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: formStyle },
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  ];
+];
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return json({ ok: true });
 };
