@@ -13,7 +13,7 @@ LABEL dev.fly.miniature-gnatt-chart-1d51=fullstack
 ENV NODE_ENV production
 
 # Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl sqlite3 script=3.* --no-install-recommends && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openssl sqlite3 --no-install-recommends && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
