@@ -1,4 +1,28 @@
-nav > ul {
-  list-style-type: none;
+nav.main-navigation-menu {
+  padding: 20px;
+  background-color: var(--color-basic_blue);
+}
+
+nav.main-navigation-menu > ol,
+nav.main-navigation-menu > ul {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  gap: 2rem;
+}
+
+nav.main-navigation-menu > ol > li > a,
+nav.main-navigation-menu > ul > li > a {
+  text-decoration: none;
+  padding: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+nav.main-navigation-menu > ol > li > a:hover,
+nav.main-navigation-menu > ul > li > a:hover {
+  border: 1px solid var(--icicle);
 }

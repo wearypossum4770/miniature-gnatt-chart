@@ -17,7 +17,7 @@ export function getNote({
 export function getNoteListItems({ userId }: { userId: User["id"] }) {
   return prisma.note.findMany({
     where: { userId },
-    select: { id: true, title: true },
+    select: { id: true, title: true, user: true },
     orderBy: { updatedAt: "desc" },
   });
 }
@@ -42,10 +42,7 @@ export function createNote({
   });
 }
 
-export function deleteNote({
-  id,
-  userId,
-}: Pick<Note, "id"> & { userId: User["id"] }) {
+export function deleteNote({ id, userId }: Pick<Note, "id"> & { userId: User["id"] }) {
   return prisma.note.deleteMany({
     where: { id, userId },
   });

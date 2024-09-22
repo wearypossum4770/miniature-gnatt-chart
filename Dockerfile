@@ -68,7 +68,7 @@ COPY --from=build /myapp/start.sh /myapp/start.sh
 COPY --from=build /myapp/prisma /myapp/prisma
 # run the app
 USER bun
-EXPOSE 3000/tcp
+EXPOSE 8080/tcp
 # EXPOSE 80/udp
 # Health check on docker container.
 # HEALTHCHECK --interval=5m --timeout=3s \

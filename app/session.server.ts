@@ -3,6 +3,7 @@ import invariant from "tiny-invariant";
 
 import type { User } from "~/models/user.server";
 import { getUserById } from "~/models/user.server";
+import { MAX_AGE, SEVEN_DAYS } from "@/utilities/index";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
@@ -11,7 +12,8 @@ export const sessionStorage = createCookieSessionStorage({
     name: "__session",
     httpOnly: true,
     path: "/",
-    sameSite: "lax",
+    maxAge: MAX_AGE,
+    sameSite: "strict",
     secrets: [process.env.SESSION_SECRET],
     secure: process.env.NODE_ENV === "production",
   },
@@ -24,11 +26,10 @@ export async function getSession(request: Request) {
   return sessionStorage.getSession(cookie);
 }
 
-export async function getUserId(
-  request: Request,
-): Promise<User["id"] | undefined> {
+export async function getUserId(request: Request): Promise<User["id"] | undefined> {
   const session = await getSession(request);
   const userId = session.get(USER_SESSION_KEY);
+  console.log(session);
   return userId;
 }
 
@@ -42,10 +43,7 @@ export async function getUser(request: Request) {
   throw await logout(request);
 }
 
-export async function requireUserId(
-  request: Request,
-  redirectTo: string = new URL(request.url).pathname,
-) {
+export async function requireUserId(request: Request, redirectTo: string = new URL(request.url).pathname) {
   const userId = await getUserId(request);
   if (!userId) {
     const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
@@ -79,16 +77,21 @@ export async function createUserSession({
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session, {
-        maxAge: remember
-          ? 60 * 60 * 24 * 7 // 7 days
-          : undefined,
+        maxAge: remember ? SEVEN_DAYS : undefined,
       }),
     },
   });
 }
 
-export async function logout(request: Request) {
+export const destroySession = async (request: Request) => {
   const session = await getSession(request);
+  return Promise.resolve(session.unset(USER_SESSION_KEY));
+};
+
+export async function logout(request: Request) {
+  console.log(await destroySession(request));
+  const session = await getSession(request);
+  console.log(session);
   return redirect("/", {
     headers: {
       "Set-Cookie": await sessionStorage.destroySession(session),

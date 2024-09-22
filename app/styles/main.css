@@ -1,72 +1,23 @@
-:root {
-  --autumn-umber: #ae704f;
-  --light-umber: #bca291;
-  --raw-umber: #635147;
-  --ochre: #cc7722;
-  --yellow-ochre: #edb525;
-  --red-ochre: #913831;
-  --brown-ochre: #99632b;
-  --bunt-ochre: #bb4f35;
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,200&display=swap");
 
-  --strong-blue: #2277cc;
-  --light-blue: #0a7aff;
-  --soft-gray: #5a5a5a40;
-  --transparent-white: #fffc;
-
-  --bright-turquoise: #1ea0c3;
-  --deep-navy: #0757fe;
-  --charcoal: #1e1f26;
-  --mint-green: #02e49b;
-  --rose-pink: #e94c89;
-  --sky-blue: #4280ff;
-  --bright-orange: #f45800;
-  --facebook-blue: #1778f2;
-  --vivid-blue: #0461dd;
-  --coral-pink: #e65678;
-  --midnight-black: #24292d;
-  --beige: #eceadd;
-  --google-red: #ea4434;
-  --royal-blue: #1d4fc4;
-  --hot-pink: #f00075;
-  --crimson-red: #e21b24;
-  --azure-blue: #0d66c2;
-  --light-sky-blue: #3288d4;
-  --salmon-red: #f6405f;
-  --apple-red: #e60122;
-  --flamingo-pink: #ef4155;
-  --orangered: #ff4500;
-  --twitter-blue: #1da1f2;
-  --spotify-green: #1bd760;
-
-  --bright-yellow: #fefc00;
-  --sunset-orange: #ff5600;
-  --denim-blue: #2f6479;
-  --burnt-sienna: #8a3324;
-  --camel-brown: #c19a6b;
-
-  --royal-navy: #002366;
-  --traditional-blue: #4169e1;
-  --navy: #000080;
-  --queen-blue: #436b95;
-  --imperial-blue: #005a92;
-  --sapphire: #0f52ba;
-  --vivid-cyan: #41b9e1;
-  --vivid-violet: #6941e1;
-  --sunflower-yellow: #e1b941;
-  --rich-blue: #1d44b8;
-  --soft-pastel-blue: #839deb;
-
-  --bright-green: #69e141;
-  --strong-red: #e14169;
-  --soft-pink: #fe828c;
-
-  /* Neutral Colors */
-  --dark-brown: #654321;
-  --deep-brown: #704241;
-  --dim-gray: #696969;
-  --brain-gray: #c8c7c9;
-  --peachy-beige: #ffd79f;
-  --golden-yellow: #ffd700;
-  --mint-teal: #3eb489;
-  --bottle-green: #0f472c;
+main.root-main {
+  padding: 0 40px;
 }
+/* START FROM  https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* END FROM https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */

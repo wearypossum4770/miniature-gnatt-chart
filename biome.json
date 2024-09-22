@@ -3,10 +3,16 @@
   "organizeImports": {
     "enabled": true
   },
+  "css": {
+    "formatter": {
+      "indentStyle": "space",
+      "enabled": true
+    }
+  },
   "files": {
     "ignore": ["public/build", "build"]
   },
-  "formatter": { "indentStyle": "space" },
+  "formatter": { "indentStyle": "space", "lineWidth": 120 },
   "vcs": {
     "enabled": false,
     "clientKind": "git",

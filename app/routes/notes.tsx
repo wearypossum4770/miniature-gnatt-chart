@@ -9,12 +9,13 @@ import { useUser } from "~/utils";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserId(request);
   const noteListItems = await getNoteListItems({ userId });
+  console.log({ noteListItems });
   return json({ noteListItems });
 };
 
 export default function NotesPage() {
   const data = useLoaderData<typeof loader>();
-  const user = useUser();
+  const user = { email: "" };
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -48,9 +49,7 @@ export default function NotesPage() {
               {data.noteListItems.map((note) => (
                 <li key={note.id}>
                   <NavLink
-                    className={({ isActive }) =>
-                      `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
-                    }
+                    className={({ isActive }) => `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`}
                     to={note.id}
                   >
                     📝 {note.title}

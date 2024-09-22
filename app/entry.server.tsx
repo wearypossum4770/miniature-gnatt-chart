@@ -22,18 +22,8 @@ export default function handleRequest(
 ) {
   const context = { responseStatusCode };
   return isbot(request.headers.get("user-agent"))
-    ? handleBotRequest(
-        request,
-        context.responseStatusCode,
-        responseHeaders,
-        remixContext,
-      )
-    : handleBrowserRequest(
-        request,
-        context.responseStatusCode,
-        responseHeaders,
-        remixContext,
-      );
+    ? handleBotRequest(request, context.responseStatusCode, responseHeaders, remixContext)
+    : handleBrowserRequest(request, context.responseStatusCode, responseHeaders, remixContext);
 }
 
 function handleBotRequest(
@@ -45,11 +35,7 @@ function handleBotRequest(
   const context = { responseStatusCode };
   return new Promise((resolve, reject) => {
     const { abort, pipe } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onAllReady() {
           const body = new PassThrough();
@@ -88,11 +74,7 @@ function handleBrowserRequest(
   const context = { responseStatusCode };
   return new Promise((resolve, reject) => {
     const { abort, pipe } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onShellReady() {
           const body = new PassThrough();

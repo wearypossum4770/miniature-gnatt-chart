@@ -2,4 +2,56 @@ div.form-group {
   display: flex;
   flex-direction: column;
   width: 50%;
+  margin: 1rem 0;
+}
+
+div.form-group > input {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--gray-120);
+}
+
+form.create-feature-suggestion-container {
+  color: rgb(158, 112, 112);
+  border-radius: 6px;
+  border: 0.75px solid var(--gray-60);
+  margin: 1rem 0;
+}
+/* acceptAttachment */
+form.create-feature-suggestion-container > main.create-feature-suggestion-main {
+  padding: .75rem 1rem;
+}
+
+form.create-feature-suggestion-container > footer {
+  padding: .75rem 1rem;
+  background-color: rgb(58, 58, 58);
+  border-top: 0.75px solid var(--gray-60);
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 0 0 6px 6px;
+}
+form.create-feature-suggestion-container > footer > button:not(.create-feature-attachment) {
+  margin: 0 5px;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 4px 12px;
+}
+
+input[type="button"].create-feature-attachment {
+  cursor: pointer;
+}
+button.cancel-button-muted {
+  background-color: #0000;
+  border: 1px solid var(--gray-60);
+  width: fit-content;
+}
+
+button.submit-button-loud {
+  background: #4285f4;
+  font-weight: bold;
+  border-color: #4285f4;
+  outline: 2px solid #0000;
 }
