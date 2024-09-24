@@ -1,5 +1,10 @@
 export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script";
 
+export type DatabaseAttribution = {
+  dateCreated: Date | string | number;
+  dateModified: Date | string | number;
+};
+
 export enum EncryptionAlgorithm {
   Unknown = 0,
   Bcrypt = 1,
@@ -32,9 +37,40 @@ export enum UserType {
   Registered = 3,
 }
 
+export type AbstractBaseUser = {
+  username: string;
+  email: string;
+};
+
 export type BaseUser = {
   password: string;
 };
+
+export type UserRegistration = BaseUser &
+  AbstractBaseUser &
+  DatabaseAttribution & {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+  };
+
+export type UserCredentials = BaseUser & {
+  hash: string;
+};
+
+export type UserAnonymity = {
+  isAnonymous: boolean;
+  type: UserType;
+};
+
+export type AnonymousUser = UserAnonymity;
+
+export type RegisteredUser = UserRegistration &
+  UserAnonymity & {
+    dateJoined: Date | string | number;
+    lastLogin?: Date | string | number;
+  };
+
 export type PreRegisteredUser = BaseUser & {
   username: string;
   firstName: string;
@@ -42,25 +78,19 @@ export type PreRegisteredUser = BaseUser & {
   lastName: string;
   email: string;
 };
-export type RegisteredUser = PreRegisteredUser & {
-  dateJoined: Date | string | number;
-  dateCreated: Date | string | number;
-};
+
 export type UserModelBase = {
   isAuthenticated: boolean;
-  dateJoined: Date | string | number;
-  lastLogin?: Date | string | number;
 };
 
-export type AnonymousUser = UserModelBase & {
-  isAnonymous: boolean;
-};
 export type PrivateUserManager = {
   password: string;
 };
+
 export type UserManager = {
   hash: string;
 };
+
 export type UnauthenticatedUser = PrivateUserManager & UserManager;
 
 export type AuthenticatedUser = AnonymousUser & UserManager & {};

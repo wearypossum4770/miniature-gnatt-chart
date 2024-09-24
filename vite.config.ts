@@ -25,11 +25,9 @@ export default defineConfig({
       routes: (definedRoutes) => definedRoutes((route) => route),
     }),
     codecovRemixVitePlugin({
-      enableBundleAnalysis: true,
+      enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
       bundleName: "minature-gnatt-chart-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN
-    })
+      uploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
 });
-
-
