@@ -1,14 +1,14 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
-import { useEffect, useRef } from "react";
-
+import signupFormFields from "@/fixtures/form-fields/signup-join.json";
 import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username.client";
+import { queryForm  } from "@/utilities/core/helpers";
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
-import signupFormFields from "@/fixtures/form-fields/signup-join.json";
-import { queryForm, extractFormData } from "@/utilities/core/helpers";
+
+
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);

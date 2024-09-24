@@ -1,15 +1,16 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Links, LiveReload, Meta, Link, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import navigationLinks from "@/fixtures/navigation-links.json";
+import styleColors from "@/styles/colors.css";
 import formStyle from "@/styles/forms.css";
 import mainStyle from "@/styles/main.css";
 import modalStyles from "@/styles/modals.css";
 import navigationStyle from "@/styles/navigation.css";
-import tableStyle from "@/styles/table.css";
-import styleColors from "@/styles/colors.css";
 import cssRest from "@/styles/reset.css";
+import tableStyle from "@/styles/table.css";
+import { cssBundleHref } from "@remix-run/css-bundle";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { Links, LiveReload, Meta, Link, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+
 // biome-ignore format: the array should not be formatted
 // prettier-ignore
 export const links: LinksFunction = (): any => [
