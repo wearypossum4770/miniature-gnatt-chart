@@ -1,10 +1,17 @@
 import projects from "@/fixtures/project-all.json";
 import users from "@/fixtures/users.json";
 import { prisma } from "~/db.server";
-
+import { type User } from "@prisma/client";
 export const generateUserSeeds = () =>
   Promise.allSettled(
-    users.map(({ firstName, id, middleName, lastName, email, username }) =>
+    users.map(({ firstName, id, middleName, lastName, email, username }: {
+      firstName: string,
+       id: string,
+       middleName: string|null,
+       lastName: string,
+       email: string,
+       username: string,
+    }) =>
       Promise.resolve(
         prisma.user.create({
           data: {
@@ -36,7 +43,7 @@ export const generateUserSeeds = () =>
     ),
   );
 
-const status = [
+export const status = [
   { label: "Ready to Start", slug: "start_ready" },
   { label: "Waiting for Review", slug: "review_needed" },
   { label: "Pending Deploy", slug: "pending_deployment" },
@@ -51,7 +58,7 @@ const status = [
   { label: "Known Bug", slug: "known_bug" },
 ];
 
-const priority = [
+export const priority = [
   { label: "Medium", slug: "medium" },
   { label: "Critical", slug: "critical" },
   { label: "High", slug: "high" },
@@ -59,7 +66,7 @@ const priority = [
   { label: "Best Effort", slug: "best_effort" },
   { label: "Missing", slug: "missing" },
 ];
-const category = [
+export const category = [
   { label: "Quality Assurance", slug: "qa" },
   { label: "Feature", slug: "feature" },
   { label: "Bug", slug: "bug" },
