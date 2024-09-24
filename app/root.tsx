@@ -7,12 +7,12 @@ import navigationStyle from "@/styles/navigation.css";
 import cssRest from "@/styles/reset.css";
 import tableStyle from "@/styles/table.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { type LinksFunction, type LoaderFunctionArgs, json } from "@remix-run/node";
+import { type LoaderFunctionArgs, json } from "@remix-run/node";
 import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 // biome-ignore format: the array should not be formatted
 // prettier-ignore
-export const links: LinksFunction = (): any => [
+export const links = () => [
 styleColors,
 cssRest,
 formStyle,
