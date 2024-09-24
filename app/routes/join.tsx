@@ -8,7 +8,7 @@ import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
 import signupFormFields from "@/fixtures/form-fields/signup-join.json";
-import { queryForm, extractFormData } from '@/utilities/core/helpers'
+import { queryForm, extractFormData } from "@/utilities/core/helpers";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);
@@ -19,24 +19,24 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const email = queryForm(formData, "email",)
-  const password = queryForm(formData, "password",)
-  const unsafeUsername = queryForm(formData, "username",)
-  const firstName = queryForm(formData, "firstName",)
-  const middleName = queryForm(formData, "middleName",)
-  const lastName = queryForm(formData, "lastName",)
+  const email = queryForm(formData, "email");
+  const password = queryForm(formData, "password");
+  const unsafeUsername = queryForm(formData, "username");
+  const firstName = queryForm(formData, "firstName");
+  const middleName = queryForm(formData, "middleName");
+  const lastName = queryForm(formData, "lastName");
   const username =
-  typeof unsafeUsername === "string" && unsafeUsername.length > 1 ? unsafeUsername : generateRamdomAlphanumeric(32);
+    typeof unsafeUsername === "string" && unsafeUsername.length > 1 ? unsafeUsername : generateRamdomAlphanumeric(32);
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
 
   const errors = {
-      email: email || null,
-      password: password || null,
-      username: username || null,
-      firstName: firstName || null,
-      middleName: middleName || null,
-      lastName: lastName || null,
-  }
+    email: email || null,
+    password: password || null,
+    username: username || null,
+    firstName: firstName || null,
+    middleName: middleName || null,
+    lastName: lastName || null,
+  };
   if (!validateEmail(email)) {
     return json({ errors: { email: "Email is invalid", password: null } }, { status: 400 });
   }
@@ -62,7 +62,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     );
   }
 
-  const { id } = await createUser({ email, password, firstName, middleName, lastName,username });
+  const { id } = await createUser({ email, password, firstName, middleName, lastName, username });
   return createUserSession({
     redirectTo,
     remember: false,
