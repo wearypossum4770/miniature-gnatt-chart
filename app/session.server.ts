@@ -1,6 +1,6 @@
+import { MAX_AGE, SEVEN_DAYS } from "@/utilities/index";
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { MAX_AGE, SEVEN_DAYS } from "@/utilities/index";
 import type { User } from "~/models/user.server";
 import { getUserById } from "~/models/user.server";
 
