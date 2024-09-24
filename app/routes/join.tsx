@@ -1,9 +1,9 @@
+import signupFormFields from "@/fixtures/form-fields/signup-join.json";
+import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username.client";
+import { queryForm } from "@/utilities/core/helpers";
 import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
-import signupFormFields from "@/fixtures/form-fields/signup-join.json";
-import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username.client";
-import { queryForm  } from "@/utilities/core/helpers";
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";

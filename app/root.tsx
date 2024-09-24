@@ -7,8 +7,7 @@ import navigationStyle from "@/styles/navigation.css";
 import cssRest from "@/styles/reset.css";
 import tableStyle from "@/styles/table.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { type LinksFunction, type LoaderFunctionArgs, json } from "@remix-run/node";
 import { Links, LiveReload, Meta, Link, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 // biome-ignore format: the array should not be formatted
