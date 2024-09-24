@@ -95,7 +95,7 @@ const Join = () => {
               aria-invalid={ariaInvalid}
               autoComplete={autoComplete}
               name={name}
-              onChange={events.includes("change") ? setrandomizeUsername : undefined}
+              onChange={(events as string[]).includes("change") ? setrandomizeUsername : undefined}
               required={required}
               type={type}
             />
