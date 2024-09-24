@@ -86,7 +86,7 @@ const Join = () => {
   return (
     <Form method="post">
       {signupFormFields.map(
-        ({ id, label, ariaDescribedby, helpText, events = [], ariaInvalid, autoComplete, name, required, type }) => (
+        ({ id, label, ariaDescribedby, helpText, events, ariaInvalid, autoComplete, name, required, type }) => (
           <div key={id} className="form-group">
             <label htmlFor={id}>{label}</label>
             <input
