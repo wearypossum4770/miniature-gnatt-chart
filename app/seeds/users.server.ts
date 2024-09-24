@@ -1,7 +1,7 @@
 import projects from "@/fixtures/project-all.json";
 import users from "@/fixtures/users.json";
 import { prisma } from "~/db.server";
-import { type User } from "@prisma/client";
+
 export const generateUserSeeds = () =>
   Promise.allSettled(
     users.map(
