@@ -14,5 +14,10 @@ startTransition(() => {
     <StrictMode>
       <RemixBrowser />
     </StrictMode>,
+    {
+      onRecoverableError: (error, errorInfo) => {
+        console.log(`Uncaught error`, error, errorInfo.componentStack, errorInfo.digest);
+      },
+    },
   );
 });

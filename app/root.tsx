@@ -43,7 +43,7 @@ export default function App() {
           <ul>
             {navigationLinks.map(({ to, label, id, meta }) => (
               <li key={id} id={`main-navigaton-link-${id}`}>
-                <Link to={ to }>{label}</Link>
+                <Link to={to}>{label}</Link>
               </li>
             ))}
           </ul>

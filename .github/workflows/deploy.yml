@@ -38,7 +38,8 @@ jobs:
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
       - name: ⎔ Setup BUN
         uses: oven-sh/setup-bun@v2
         with:
@@ -60,6 +61,11 @@ jobs:
         # to use vitest
         # run: npm run test -- --coverage
 
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
   deploy:
     name: 🚀 Deploy
     runs-on: ubuntu-latest

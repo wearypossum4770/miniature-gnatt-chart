@@ -20,11 +20,11 @@ export const getUserByEmail = (email: User["email"]) => prisma.user.findUnique({
 
 export const getUserByEmailObject = ({ email }: User) => prisma.user.findUnique({ where: { email } });
 
-export const createUser = async ({ username, password, email, firstName, middleName, lastName,}: PreRegisteredUser) => {
+export const createUser = async ({ username, password, email, firstName, middleName, lastName }: PreRegisteredUser) => {
   const hash = await hashPassword({ password });
   if (hash === null) return { id: null };
   return prisma.user.create({
-    data: { username, firstName, middleName, lastName,email, password: { create: { hash } } },
+    data: { username, firstName, middleName, lastName, email, password: { create: { hash } } },
   });
 };
 

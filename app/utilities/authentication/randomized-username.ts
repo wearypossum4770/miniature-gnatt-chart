@@ -1,3 +1,8 @@
+import { CHALLENGE_LENGTH, USERNAME_LENGTH } from "@/utilities/index";
+import { getRandomValues } from "node:crypto";
+
+// biome-ignore format: the array should not be formatted
+// prettier-ignore
 const cache = String.fromCharCode.apply(
   null,
   [
@@ -8,10 +13,16 @@ const cache = String.fromCharCode.apply(
   ],
 );
 
-export const generateRamdomAlphanumeric = (length: number) => {
-  const buffer = new Uint8Array(
-    typeof length === "number" && length < 64 ? length : 32,
-  );
-  crypto.getRandomValues(buffer);
+export const safeCrypto = (buffer: Uint8Array) => {
+  if (typeof window === "undefined" && typeof document === "undefined") {
+    return import("node:crypto").then(({ getRandomValues }) => Promise.resolve(getRandomValues(buffer)));
+  }
+  return crypto.getRandomValues(buffer);
+};
+export const randomlyFillBuffer = (length?: number): Uint8Array =>
+  new Uint8Array(typeof length === "number" && length < CHALLENGE_LENGTH ? length : USERNAME_LENGTH);
+export const generateRamdomAlphanumeric = async (length: number) => {
+  const buffer = randomlyFillBuffer(length);
+  safeCrypto(buffer);
   return Array.from(buffer).reduce((a, b) => a + cache[b % cache.length], "");
 };

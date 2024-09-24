@@ -1,28 +1,27 @@
-export class PermissionDenied extends Error {
-  constructor() {
-    super("The user did not have permission to do that");
-  }
-}
-// DoesNotExist
-export class UserDoesNotExist extends Error {
-  constructor() {
-    super("the requested user does not exist");
-  }
-}
+export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script";
 
 export enum EncryptionAlgorithm {
-  Unknown = 0,
-  Bcrypt = 1,
-  ApacheMd5 = 2,
-  Sha1 = 3,
-  ApacheCrypt = 4,
+  Unknown,
+  Bcrypt,
+  ApacheMd5,
+  Sha1,
+  ApacheCrypt,
+  ArgonHybrid,
+  ArgonDependent,
+  ArgonIndependent,
+  PasswordBasedKey,
+  Scrypt,
 }
 
-export const selectEncryptionAlgorithm = (
-  hash: string,
-): EncryptionAlgorithm => {
+export const selectEncryptionAlgorithm = (hash: string): EncryptionAlgorithm => {
+  if (hash.startsWith("scrypt")) return EncryptionAlgorithm.Scrypt;
+  if (hash.startsWith("$pbkdf2-sha256$")) return EncryptionAlgorithm.PasswordBasedKey;
+  if (hash.startsWith("$pbkdf2")) return EncryptionAlgorithm.PasswordBasedKey;
   if (hash.startsWith("$apr1$")) return EncryptionAlgorithm.ApacheMd5;
   if (hash.startsWith("$2y$")) return EncryptionAlgorithm.Bcrypt;
+  if (hash.startsWith("$argon2d$")) return EncryptionAlgorithm.ArgonDependent;
+  if (hash.startsWith("$argon2i$")) return EncryptionAlgorithm.ArgonIndependent;
+  if (hash.startsWith("$argon2id$")) return EncryptionAlgorithm.ArgonHybrid;
   return EncryptionAlgorithm.Unknown;
 };
 
@@ -38,6 +37,9 @@ export type BaseUser = {
 };
 export type PreRegisteredUser = BaseUser & {
   username: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
   email: string;
 };
 export type RegisteredUser = PreRegisteredUser & {
@@ -58,7 +60,6 @@ export type PrivateUserManager = {
 };
 export type UserManager = {
   hash: string;
-  hashPassword(): string;
 };
 export type UnauthenticatedUser = PrivateUserManager & UserManager;
 
@@ -68,3 +69,14 @@ export type AuthenticatedUser = AnonymousUser & UserManager & {};
 // checkPassword
 // checkLogin
 // updateLastLogin
+export type StaticAuthenticationProvider = "email";
+export enum AuthenticationProviderEnum {
+  Email,
+}
+export type AuthenticationOptions = {
+  provider: StaticAuthenticationProvider | AuthenticationProviderEnum;
+};
+export type HashDriverSelection = {
+  hashDriver?: HashDriverAlgorithms;
+  hash?: string;
+};

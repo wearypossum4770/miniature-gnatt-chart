@@ -1,4 +1,3 @@
-
 .table-icon {
   cursor: pointer;
   padding-right: 8px;
@@ -11,24 +10,26 @@
   border-spacing: 0;
   background-color: rgba(var(--icicle), 0.97);
   color: var(--color-mud_black);
-  /* width: 100%; */
   overflow: scroll;
 }
-table.data-table thead th  {
+table.data-table thead th {
   position: sticky;
-  background-color: #FFF;
-  /* overflow-y: hidden; */
+  background-color: #fff;
   top: 0;
-  /* z-index: 1; */
 }
-.data-table td, .data-table th {
+.data-table td,
+.data-table th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-.data-table tr:nth-child(even){background-color: #f2f2f2;}
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-.data-table tr:hover {background-color: #ddd;}
+.data-table tr:hover {
+  background-color: #ddd;
+}
 .data-table:nth-child(1) {
   border-top-left-radius: 6px;
 }
@@ -36,11 +37,10 @@ table.data-table thead th  {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-
 }
 
 td[data-cell-status] {
-  color: #FFF;
+  color: #fff;
   text-align: center;
 }
 
@@ -50,28 +50,28 @@ td[data-cell-status="draft"] {
 td[data-cell-status="in_progress"] {
   background-color: #ffcb00;
 }
-td[data-cell-status="complete"]{
-  background-color: #9cd326;;
+td[data-cell-status="complete"] {
+  background-color: #9cd326;
 }
 
-td[data-cell-status="none"]{
+td[data-cell-status="none"] {
   color: #000;
   font-weight: bolder;
-  background: repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
+  background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
 }
-td[data-cell-status="on_hold"]{
+td[data-cell-status="on_hold"] {
   background-color: var(--ochre);
 }
-td[data-cell-status="stuck"]{
+td[data-cell-status="stuck"] {
   background-color: #df2f4a;
 }
-td[data-cell-status="done"]{
+td[data-cell-status="done"] {
   background-color: #00c875;
 }
-td[data-cell-status="not_started"]{
+td[data-cell-status="not_started"] {
   background-color: var(--color-wolf_gray);
 }
-td[data-cell-status="cancelled"]{
+td[data-cell-status="cancelled"] {
   background-color: var(--asana);
 }
 

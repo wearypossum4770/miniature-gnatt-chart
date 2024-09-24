@@ -1,10 +1,6 @@
 import { hash, verify } from "@node-rs/argon2";
 
-import type {
-  BaseUser,
-  PrivateUserManager,
-  UnauthenticatedUser,
-} from "@/utilities/authentication/config";
+import type { BaseUser, PrivateUserManager, UnauthenticatedUser } from "@/utilities/authentication/config";
 import { safePassword } from "@/utilities/password-hashers/config";
 
 export enum ArgonAlgorithm {
@@ -22,19 +18,14 @@ export enum ArgonVersion {
   version0x13 = 1,
 }
 
-export const hashPassword = async ({
-  password,
-}: Pick<BaseUser, "password">): Promise<string | null> => {
+export const hashPassword = async ({ password }: Pick<BaseUser, "password">): Promise<string | null> => {
   "use server";
   const pword = safePassword(password);
   if (typeof pword === "string") return hash(pword.normalize("NFKC"));
   return null;
 };
 
-export const verifyPassword = async ({
-  password,
-  hash,
-}: UnauthenticatedUser): Promise<boolean> => {
+export const verifyPassword = async ({ password, hash }: UnauthenticatedUser): Promise<boolean> => {
   "use server";
   const pword = safePassword(password);
   return !pword ? false : verify(hash.normalize("NFKC"), pword);

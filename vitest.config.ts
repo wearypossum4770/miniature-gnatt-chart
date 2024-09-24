@@ -13,3 +13,6 @@ export default defineConfig({
     setupFiles: ["./test/setup-test-env.ts"],
   },
 });
+
+// Dani from TikTok
+// all emotion is welcomed, all behavior is not. If you are having problems expressing the emotion, don't do a bahavior until you have a grip on the emotion.
