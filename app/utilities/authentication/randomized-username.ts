@@ -1,5 +1,4 @@
 import { CHALLENGE_LENGTH, USERNAME_LENGTH } from "@/utilities/index";
-import { getRandomValues } from "node:crypto";
 
 // biome-ignore format: the array should not be formatted
 // prettier-ignore

@@ -16,7 +16,7 @@ startTransition(() => {
     </StrictMode>,
     {
       onRecoverableError: (error, errorInfo) => {
-        console.log(`Uncaught error`, error, errorInfo.componentStack, errorInfo.digest);
+        console.log("Uncaught error", error, errorInfo.componentStack, errorInfo.digest);
       },
     },
   );
