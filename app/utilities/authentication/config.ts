@@ -1,16 +1,16 @@
 export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script";
 
 export enum EncryptionAlgorithm {
-  Unknown,
-  Bcrypt,
-  ApacheMd5,
-  Sha1,
-  ApacheCrypt,
-  ArgonHybrid,
-  ArgonDependent,
-  ArgonIndependent,
-  PasswordBasedKey,
-  Scrypt,
+  Unknown = 0,
+  Bcrypt = 1,
+  ApacheMd5 = 2,
+  Sha1 = 3,
+  ApacheCrypt = 4,
+  ArgonHybrid = 5,
+  ArgonDependent = 6,
+  ArgonIndependent = 7,
+  PasswordBasedKey = 8,
+  Scrypt = 9,
 }
 
 export const selectEncryptionAlgorithm = (hash: string): EncryptionAlgorithm => {
@@ -71,7 +71,7 @@ export type AuthenticatedUser = AnonymousUser & UserManager & {};
 // updateLastLogin
 export type StaticAuthenticationProvider = "email";
 export enum AuthenticationProviderEnum {
-  Email,
+  Email = 0,
 }
 export type AuthenticationOptions = {
   provider: StaticAuthenticationProvider | AuthenticationProviderEnum;
