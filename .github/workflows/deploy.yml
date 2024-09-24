@@ -51,9 +51,6 @@ jobs:
       - name: 📥 Install deps
         run: bun install --bun --smol --prefer-offline
 
-      - name: Prisma Generate
-        run: bunx --bun prisma generate
-
       - name: 🔎 Type check
         run: bun run --bun --smol --prefer-offline --if-present typecheck
 
