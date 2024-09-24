@@ -51,10 +51,12 @@ jobs:
       - name: 📥 Install deps
         run: bun install --bun --smol --prefer-offline
 
-      - name: 🔎 Type check
-        run: bun run --bun --smol --prefer-offline --if-present typecheck
       - name: Prisma Generate
         run: bunx --bun prisma generate
+
+      - name: 🔎 Type check
+        run: bun run --bun --smol --prefer-offline --if-present typecheck
+
       - name: ⚡ Run bun:test
         # bail <number> || 1  *bail after specified number of errors*
         # coverage  *generate a coverage profile
