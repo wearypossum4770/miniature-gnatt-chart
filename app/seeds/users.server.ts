@@ -1,5 +1,5 @@
-import users from "@/fixtures/users.json";
 import projects from "@/fixtures/project-all.json";
+import users from "@/fixtures/users.json";
 import { prisma } from "~/db.server";
 
 export const generateUserSeeds = () =>
