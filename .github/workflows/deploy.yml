@@ -53,11 +53,11 @@ jobs:
 
       - name: 🔎 Type check
         run: bun run --bun --smol --prefer-offline --if-present typecheck
-
+      - name: Prisma Generate
+        run: bunx --bun prisma generate
       - name: ⚡ Run bun:test
         # bail <number> || 1  *bail after specified number of errors*
         # coverage  *generate a coverage profile
-        run: bunx --bun prisma generate
         run: bun test --bun --smol --prefer-offline --coverage --bail
         # to use vitest
         # run: npm run test -- --coverage
