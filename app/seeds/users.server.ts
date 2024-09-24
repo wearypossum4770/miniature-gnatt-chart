@@ -4,42 +4,50 @@ import { prisma } from "~/db.server";
 import { type User } from "@prisma/client";
 export const generateUserSeeds = () =>
   Promise.allSettled(
-    users.map(({ firstName, id, middleName, lastName, email, username }: {
-      firstName: string,
-       id: string,
-       middleName: string|null,
-       lastName: string,
-       email: string,
-       username: string,
-    }) =>
-      Promise.resolve(
-        prisma.user.create({
-          data: {
-            id,
-            firstName,
-            middleName,
-            lastName,
-            email,
-            username,
-            projects: {
-              createMany: {
-                data: projects.map(
-                  ({ progress, title, dateArchived, dateDeleted, dateStarting, dateEnding, status, documentId }) => ({
-                    progress,
-                    title,
-                    dateArchived,
-                    dateDeleted,
-                    dateStarting,
-                    dateEnding,
-                    status,
-                    documentId,
-                  }),
-                ),
+    users.map(
+      ({
+        firstName,
+        id,
+        middleName,
+        lastName,
+        email,
+        username,
+      }: {
+        firstName: string;
+        id: string;
+        middleName: string | null;
+        lastName: string;
+        email: string;
+        username: string;
+      }) =>
+        Promise.resolve(
+          prisma.user.create({
+            data: {
+              id,
+              firstName,
+              middleName,
+              lastName,
+              email,
+              username,
+              projects: {
+                createMany: {
+                  data: projects.map(
+                    ({ progress, title, dateArchived, dateDeleted, dateStarting, dateEnding, status, documentId }) => ({
+                      progress,
+                      title,
+                      dateArchived,
+                      dateDeleted,
+                      dateStarting,
+                      dateEnding,
+                      status,
+                      documentId,
+                    }),
+                  ),
+                },
               },
             },
-          },
-        }),
-      ),
+          }),
+        ),
     ),
   );
 
