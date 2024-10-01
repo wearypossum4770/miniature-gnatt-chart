@@ -5,20 +5,23 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = "native"
+
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  firstName String
+  id         String    @id @default(cuid())
+  email      String    @unique
+  firstName  String
   middleName String?
-  lastName String
-  username  String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  password  Password?
-  notes     Note[]
-  projects  Project[]
+  lastName   String
+  username   String    @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  roles String @default("user")
+  password   Password?
+  notes      Note[]
+  projects   Project[]
 }
 
 model Password {
