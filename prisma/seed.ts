@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 export const reset = () => Promise.all([prisma.user.deleteMany(), prisma.project.deleteMany()]);
 
-export const seed = () => Promise.all([generateUserSeeds()]);
+export const seed = async () => Promise.all([generateUserSeeds()]);
 
 seed()
-  .then()
+  .then(e=>console.log(JSON.parse(JSON.stringify(e, null, 3))))
   .catch((e) => {
     console.error(e);
     process.exit(1);
