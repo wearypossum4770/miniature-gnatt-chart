@@ -1,15 +1,16 @@
 nav.main-navigation-menu {
   padding: 20px;
-  background-color: var(--color-basic_blue);
+  background-color: var(--electric-blue);
 }
 
 nav.main-navigation-menu > ol,
 nav.main-navigation-menu > ul {
   display: flex;
+  padding: unset;
   flex-direction: row;
   flex-wrap: wrap;
   list-style-type: none;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 nav.main-navigation-menu > ol > li > a,
@@ -20,9 +21,17 @@ nav.main-navigation-menu > ul > li > a {
   font-weight: bold;
   cursor: pointer;
   border: 1px solid transparent;
+  border-radius: 3px;
 }
 
 nav.main-navigation-menu > ol > li > a:hover,
 nav.main-navigation-menu > ul > li > a:hover {
   border: 1px solid var(--icicle);
+}
+
+aside.projects-sidebar {
+  display: inline-block;
+  color: var(--misty-breeze);
+  transition: width var(--motion-productive-long) cubic-bezier(0, 0, 0.35, 1);
+  background: linear-gradient(135deg, var(--midnight-navy) 5%, var(--inky-indigo) 100%);
 }

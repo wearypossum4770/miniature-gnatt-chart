@@ -414,24 +414,6 @@
     "email": "benjamin.harrison@president.white-house.com"
   },
   {
-    "id": "zyfht6gwavrtma6yms451583",
-    "profilePic": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Grover_Cleveland_-_NARA_-_518139_%28cropped%29_%282%29.jpg/320px-Grover_Cleveland_-_NARA_-_518139_%28cropped%29_%282%29.jpg",
-    "bio": "Stephen Grover Cleveland was an American lawyer and politician who served as the 22nd and 24th president of the United States from 1885 to 1889 and from 1893 to 1897. Cleveland is the only president in American history to serve two nonconsecutive terms in office.",
-    "firstName": "Stephen",
-    "middleName": "Grover",
-    "lastName": "Cleveland",
-    "key": 66287140,
-    "suffix": "",
-    "title": null,
-    "filePreviewEnabled": true,
-    "linkPreviewEnabled": true,
-    "passwordPolicy": 2,
-    "accountId": 25530176,
-    "timeZoneOffset": -4,
-    "username": "stephen.grover.cleveland",
-    "email": "stephen.grover.cleveland@president.white-house.com"
-  },
-  {
     "id": "w9apf7mlzb6hc2msvcwck8ex",
     "profilePic": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/McKinley_%28cropped%29_%282%29.jpg/320px-McKinley_%28cropped%29_%282%29.jpg",
     "bio": "William McKinley was the 25th president of the United States, serving from 1897 until his assassination in 1901.",

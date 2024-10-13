@@ -20,34 +20,40 @@ export const generateUserSeeds = () =>
         email: string;
         username: string;
       }) =>
-        Promise.resolve(
-          prisma.user.create({
-            data: {
-              id,
-              firstName,
-              middleName,
-              lastName,
-              email,
-              username,
-              projects: {
-                createMany: {
-                  data: projects.map(
-                    ({ progress, title, dateArchived, dateDeleted, dateStarting, dateEnding, status, documentId }) => ({
-                      progress,
-                      title,
-                      dateArchived,
-                      dateDeleted,
-                      dateStarting,
-                      dateEnding,
-                      status,
-                      documentId,
-                    }),
-                  ),
-                },
+        prisma.user.upsert({
+          where: { id },
+          update: {
+            firstName,
+            middleName,
+            lastName,
+            email,
+            username,
+          },
+          create: {
+            id,
+            firstName,
+            middleName,
+            lastName,
+            email,
+            username,
+            projects: {
+              createMany: {
+                data: projects.map(
+                  ({ progress, title, dateArchived, dateDeleted, dateStarting, dateEnding, status, documentId }) => ({
+                    progress,
+                    title,
+                    dateArchived,
+                    dateDeleted,
+                    dateStarting,
+                    dateEnding,
+                    status,
+                    documentId,
+                  }),
+                ),
               },
             },
-          }),
-        ),
+          },
+        }),
     ),
   );
 
@@ -81,3 +87,14 @@ export const category = [
   { label: "Test", slug: "test" },
   { label: "Security", slug: "security" },
 ];
+
+export type AuthenticationMechanism = {
+  onAuthFailedRedirectTo: string;
+};
+export enum AuthenticationMethod {
+  UsernamePassword,
+  Token,
+}
+export type BasicAuthentication = AuthenticationMechanism & {
+  methods: AuthenticationMethod[];
+};

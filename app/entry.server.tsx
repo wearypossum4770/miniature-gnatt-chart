@@ -11,56 +11,54 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-
+import { corsPolicyEnforcement } from "@/utilities/security";
 const ABORT_DELAY = 5_000;
 
-export default function handleRequest(
+const handleRequest = (
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-) {
-  const context = { responseStatusCode };
-  return isbot(request.headers.get("user-agent"))
-    ? handleBotRequest(request, context.responseStatusCode, responseHeaders, remixContext)
-    : handleBrowserRequest(request, context.responseStatusCode, responseHeaders, remixContext);
-}
-
+) =>
+  isbot(request.headers.get("user-agent"))
+    ? handleBotRequest(request, responseStatusCode, responseHeaders, remixContext)
+    : handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext);
+export default handleRequest;
 function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  const context = { responseStatusCode };
+  const context = { responseStatusCode, hasError: false };
   return new Promise((resolve, reject) => {
     const { abort, pipe } = renderToPipeableStream(
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onAllReady() {
           const body = new PassThrough();
-
+          corsPolicyEnforcement(responseHeaders);
           responseHeaders.set("Content-Type", "text/html");
-
           resolve(
             new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
               status: context.responseStatusCode,
             }),
           );
-
           pipe(body);
         },
         onShellError(error: unknown) {
           reject(error);
         },
         onError(error: unknown) {
-          context.responseStatusCode = 500;
+          Object.assign(context, {
+            responseStatusCode: 500,
+            hasError: true,
+          });
           console.error(error);
         },
       },
     );
-
     setTimeout(abort, ABORT_DELAY);
   });
 }
@@ -71,35 +69,35 @@ function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  const context = { responseStatusCode };
+  const context = { responseStatusCode, hasError: false };
   return new Promise((resolve, reject) => {
     const { abort, pipe } = renderToPipeableStream(
       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
         onShellReady() {
           const body = new PassThrough();
-
+          corsPolicyEnforcement(responseHeaders);
           responseHeaders.set("Content-Type", "text/html");
-
           resolve(
             new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
               status: context.responseStatusCode,
             }),
           );
-
           pipe(body);
         },
         onShellError(error: unknown) {
           reject(error);
         },
         onError(error: unknown) {
+          Object.assign(context, {
+            responseStatusCode: 500,
+            hasError: true,
+          });
           console.error(error);
-          context.responseStatusCode = 500;
         },
       },
     );
-
     setTimeout(abort, ABORT_DELAY);
   });
 }

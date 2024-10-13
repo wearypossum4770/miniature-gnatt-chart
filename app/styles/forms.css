@@ -1,24 +1,26 @@
 div.form-group {
   display: flex;
   flex-direction: column;
-  width: 50%;
   margin: 1rem 0;
+  box-shadow: 0 10px 20px -8px var(--cool-mint);
 }
-
+div.form-group.half-page {
+  width: 50%;
+}
 div.form-group > input {
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  color: var(--gray-120);
+  color: var(--charcoal-black);
 }
 
 form.create-feature-suggestion-container {
-  color: rgb(158, 112, 112);
+  color: var(--muted-rose);
   border-radius: 6px;
-  border: 0.75px solid var(--gray-60);
+  border: 0.75px solid var(--pale-silver);
   margin: 1rem 0;
 }
-/* acceptAttachment */
+
 form.create-feature-suggestion-container > main.create-feature-suggestion-main {
   padding: .75rem 1rem;
 }
@@ -26,7 +28,7 @@ form.create-feature-suggestion-container > main.create-feature-suggestion-main {
 form.create-feature-suggestion-container > footer {
   padding: .75rem 1rem;
   background-color: rgb(58, 58, 58);
-  border-top: 0.75px solid var(--gray-60);
+  border-top: 0.75px solid var(--pale-silver);
   align-items: center;
   display: flex;
   justify-content: flex-end;
@@ -45,13 +47,72 @@ input[type="button"].create-feature-attachment {
 }
 button.cancel-button-muted {
   background-color: #0000;
-  border: 1px solid var(--gray-60);
+  border: 1px solid var(--pale-silver);
   width: fit-content;
 }
 
 button.submit-button-loud {
-  background: #4285f4;
+  background: var(--brilliant-sapphire);
   font-weight: bold;
-  border-color: #4285f4;
+  border-color: var(--brilliant-sapphire);
   outline: 2px solid #0000;
+}
+
+label.toggle-form-group {
+  margin: 40px;
+  border-radius: 18px;
+  cursor: pointer;
+  display: flex;
+  width: 60px;
+  max-width: 30%;
+  position: relative;
+  outline: 3px solid #ddd;
+  height: 1rem;
+  transition: all 0.15s ease-in-out 0s;
+}
+label.toggle-form-group:focus-visible {
+  border-color: var(--verdant-canopy);
+}
+label.toggle-form-group > input {
+  width: 0;
+  height: 0;
+  box-shadow: none;
+  outline: none;
+}
+label.toggle-form-group > input ~ span.toggle-from-group-switch {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 18px;
+  display: inline-block;
+  position: absolute;
+  background-color: var(--soft-snow);
+  border: 1px solid pink;
+  transition: transform 0.5s ease-out 0s;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+@media (prefers-color-scheme: light) or (color-scheme: light) {
+  label.toggle-form-group:has(:checked) {
+    background-color: #eceeeb;
+    /* #4fb845; */
+  }
+}
+
+@media (prefers-color-scheme: dark) or (color-scheme: dark) {
+  label.toggle-form-group:has(:checked) {
+    background-color: var(--vibrant-azure);
+  }
+}
+label.toggle-form-group:not(:has(:checked)) > input ~ span.toggle-from-group-switch {
+  transform: translateX(0);
+}
+
+label.toggle-form-group:has(:checked) > input ~ span.toggle-from-group-switch {
+  transform: translateX(44px);
 }

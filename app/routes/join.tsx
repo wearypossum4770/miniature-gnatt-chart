@@ -1,19 +1,14 @@
 import signupFormFields from "@/fixtures/form-fields/signup-join.json";
 import { generateRamdomAlphanumeric } from "@/utilities/authentication/randomized-username.client";
 import { queryForm } from "@/utilities/core/helpers";
-import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { type ActionFunctionArgs, type LoaderFunctionArgs, type MetaFunction, json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const userId = await getUserId(request);
-  console.log({ userId });
-  if (userId) return redirect("/");
-  return json({});
-};
+export const loader = async ({ request }: LoaderFunctionArgs) =>
+  (await getUserId(request)) ? redirect("/") : json({});
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();

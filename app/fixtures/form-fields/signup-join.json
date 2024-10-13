@@ -47,7 +47,7 @@
     "id": "username",
     "required": true,
     "name": "username",
-    "type": "email",
+    "type": "username",
     "autoComplete": "username",
     "ariaInvalid": false,
     "ariaDescribedby": "username-error",

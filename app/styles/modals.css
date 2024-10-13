@@ -1,0 +1,56 @@
+form#create-task-form[popover] {
+  inset: 0;
+  margin: auto;
+  color: var(--misty-breeze);
+  background-color: var(--deep-sea);
+  padding: 0.25em;
+  font-size: 1.5rem;
+  overflow: auto;
+}
+
+form#create-task-form:popover-open {
+  width: 80%;
+  height: 80%;
+  padding: 2rem;
+  margin: auto;
+}
+form#create-task-form::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+form#create-task-form > div.form-group:target,
+form#create-task-form > div.form-group:active,
+form#create-task-form > div.form-group:focus {
+  border: 2px solid var(--verdant-canopy);
+}
+form#create-task-form > div.form-group {
+  color: var(--misty-breeze);
+  border: 1px solid var(--twilight-veil);
+  border-radius: .25rem;
+}
+
+form#create-task-form > div.form-group > label:not(.toggle-form-group) {
+  padding: 5px 10px;
+}
+form#create-task-form > div.form-group > label {
+  text-transform: capitalize;
+  border-bottom: 1px solid var(--twilight-veil);
+}
+form#create-task-form > div.form-group > input[type] {
+  text-transform: capitalize;
+}
+form#create-task-form > div.form-group > input[type="checkbox"] {
+  margin: 0.5rem 1rem;
+}
+form#create-task-form > div.form-group > textarea,
+form#create-task-form > div.form-group > input[type] {
+  font-size: 1rem;
+}
+form#create-task-form > div.form-group > textarea,
+form#create-task-form > div.form-group > input[type] {
+  border: none;
+  border-radius: .25rem;
+  padding: 1rem;
+  background-color: var(--deep-sea);
+  color: var(--misty-breeze);
+}

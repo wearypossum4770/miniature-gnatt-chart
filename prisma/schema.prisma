@@ -3,6 +3,9 @@
 // `migrate` is like committing while `push` is for prototyping.
 // Read more about both here:
 // https://www.prisma.io/docs/orm/prisma-migrate
+// Additional Resources
+// https://prisma-erd.simonknott.de/
+// https://prismaliser.app/
 
 datasource db {
   provider = "sqlite"
@@ -52,7 +55,7 @@ model Project {
   status        String
   description   String?
   documentOwner String
-  documentId    Int
+  documentId    Int?
   dateArchived  DateTime?
   dateDeleted   DateTime?
   dateStarting  DateTime?

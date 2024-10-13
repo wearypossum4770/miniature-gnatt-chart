@@ -1,7 +1,10 @@
 @import url(./table.css);
+@import url(./extra.css);
 @import url(./reset.css);
 @import url(./colors.css);
 @import url(./forms.css);
+@import url(./project-view.css);
 @import url(./main.css);
 @import url(./modals.css);
 @import url(./navigation.css);
+@import url(./sidebar.css)

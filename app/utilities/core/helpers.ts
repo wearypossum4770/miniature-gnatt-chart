@@ -1,3 +1,10 @@
+import { SyntheticEvent } from "react";
+import { type NavigateFunction } from "@remix-run/react";
+export const handleNavigation = ({ target }: SyntheticEvent<HTMLTableSectionElement>, fn: NavigateFunction) => {
+  const { closest } = target as HTMLTableSectionElement;
+  const row = closest.call(target, "tr");
+  if (row) return fn(row.id);
+};
 export enum ProjectStatus {
   NoStatus = "none",
   Draft = "draft",
@@ -73,6 +80,10 @@ export const humanizeProjectStatus = (status: string) => {
   }
 };
 
+export const rejectWheelInputMutation = ({ target }: SyntheticEvent<HTMLFormElement>) => {
+  const { blur, type } = target as HTMLInputElement;
+  if (/number/i.test(type)) return blur.call(target);
+};
 const statusCache = [
   ...new Set(["none", "complete", "on_hold", "draft", "in_progress", "stuck", "done", "not_started", "cancelled"]),
 ];

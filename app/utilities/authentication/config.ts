@@ -1,8 +1,8 @@
-export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script";
+export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script" | "bcrypt";
 
 export type DatabaseAttribution = {
-  dateCreated: Date | string | number;
-  dateModified: Date | string | number;
+  dateCreated?: Date | string | number;
+  dateModified?: Date | string | number;
 };
 
 export enum EncryptionAlgorithm {
@@ -35,7 +35,12 @@ export enum UserType {
   Authenticated = 1,
   Unregistered = 2,
   Registered = 3,
+  PreAuthorization = 4,
 }
+
+export type AllowedRoles = {};
+
+export const hasRole = (roles: AllowedRoles): boolean => false;
 
 export type AbstractBaseUser = {
   username: string;

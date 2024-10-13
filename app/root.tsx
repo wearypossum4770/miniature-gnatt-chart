@@ -1,3 +1,4 @@
+import projectviewStyle from "@/styles/project-view.css";
 import navigationLinks from "@/fixtures/navigation-links.json";
 import styleColors from "@/styles/colors.css";
 import formStyle from "@/styles/forms.css";
@@ -6,8 +7,9 @@ import modalStyles from "@/styles/modals.css";
 import navigationStyle from "@/styles/navigation.css";
 import cssRest from "@/styles/reset.css";
 import tableStyle from "@/styles/table.css";
+import sidebarStyle from "@/styles/sidebar.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { type LoaderFunctionArgs, json } from "@remix-run/node";
+import { type LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 // biome-ignore format: the array should not be formatted
@@ -16,6 +18,8 @@ export const links = () => [
 styleColors,
 cssRest,
 formStyle,
+projectviewStyle,
+sidebarStyle, 
 cssBundleHref,
 mainStyle,
 modalStyles,
@@ -27,13 +31,20 @@ tableStyle,
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ ok: true });
 };
-
+export const meta: MetaFunction = () => [
+  {
+    charset: "utf-8",
+    title: "Remix 💚 Prisma",
+    keywords: ["docker-compose", "docker", "stack"],
+    author: "Dev Team",
+    viewport: "width=device-width,initial-scale=1",
+  },
+];
 export default function App() {
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         {/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com;" /> */}
         <Meta />
         <Links />

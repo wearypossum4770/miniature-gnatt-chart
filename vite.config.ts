@@ -23,7 +23,9 @@ export default defineConfig({
       ignoredRouteFiles: ["**/*.css"],
       future: {},
       serverBuildFile: "index.ts",
-      routes: (definedRoutes) => definedRoutes((route) => route),
+      routes: (definedRoutes) => definedRoutes((route) => {
+        route(".well-known/change-password", "change-password")
+      }),
     }),
     codecovRemixVitePlugin({
       enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,

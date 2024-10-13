@@ -43,6 +43,13 @@
     "to": "/join"
   },
   {
+    "meta": { "requiresAuth": false, "requiresCamera": false },
+    "label": "Newsletter",
+    "id": 11,
+    "to": "/newsletter"
+  },
+
+  {
     "meta": {
       "username": "george.washington",
       "requiresCamera": false,
