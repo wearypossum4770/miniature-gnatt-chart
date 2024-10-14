@@ -38,7 +38,11 @@ export enum UserType {
   PreAuthorization = 4,
 }
 
-export type AllowedRoles = {};
+export enum AllowedRoles {
+  Admin = 0,
+  SuperAdmin = 1,
+  Owner = 2,
+}
 
 export const hasRole = (roles: AllowedRoles): boolean => false;
 

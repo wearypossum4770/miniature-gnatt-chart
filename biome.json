@@ -12,6 +12,7 @@
   "files": {
     "ignore": ["public/build", "build"]
   },
+
   "formatter": { "indentStyle": "space", "lineWidth": 120 },
   "vcs": {
     "enabled": false,
@@ -22,7 +23,15 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "style":{
+        "useEnumInitializers": {
+          "level": "info",
+          "fix": "safe"
+        }
+      },
       "recommended": true
     }
   }
 }
+
+

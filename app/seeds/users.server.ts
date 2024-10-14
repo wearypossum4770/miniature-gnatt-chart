@@ -92,8 +92,8 @@ export type AuthenticationMechanism = {
   onAuthFailedRedirectTo: string;
 };
 export enum AuthenticationMethod {
-  UsernamePassword,
-  Token,
+  UsernamePassword = 0,
+  Token = 1,
 }
 export type BasicAuthentication = AuthenticationMechanism & {
   methods: AuthenticationMethod[];

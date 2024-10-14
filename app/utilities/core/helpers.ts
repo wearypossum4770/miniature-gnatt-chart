@@ -1,5 +1,5 @@
-import { SyntheticEvent } from "react";
-import { type NavigateFunction } from "@remix-run/react";
+import type { SyntheticEvent } from "react";
+import type { NavigateFunction } from "@remix-run/react";
 export const handleNavigation = ({ target }: SyntheticEvent<HTMLTableSectionElement>, fn: NavigateFunction) => {
   const { closest } = target as HTMLTableSectionElement;
   const row = closest.call(target, "tr");
