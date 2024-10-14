@@ -29,7 +29,7 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const clientIp = request.headers.get('Fly-Client-IP')
+  const clientIp = request.headers.get("Fly-Client-IP");
 
   return json({ ok: true, clientIp });
 };
@@ -43,7 +43,7 @@ export const meta: MetaFunction = () => [
   },
 ];
 export default function App() {
-  const data = useLoaderData<typeof loader>()
+  const data = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -64,7 +64,7 @@ export default function App() {
           </ul>
         </nav>
         <main className="root-main">
-        <h1>{`Your ip address is ${data.clientIp}`}</h1>
+          <h1>{`Your ip address is ${data.clientIp}`}</h1>
           <Outlet />
         </main>
         <ScrollRestoration />

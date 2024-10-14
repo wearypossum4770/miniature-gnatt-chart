@@ -15,12 +15,17 @@ swap_size_mb = 512
   auto_rollback = true
   [experimental.attached]
     secrets = { }
-[build]
+[metrics]
+port = 9091
+path = "/metrics"
 
+[build]
+image = "flyio/redis:6.2.6"
 [[mounts]]
   source = 'data'
   destination = '/data'
-
+  # source = "litefs"
+  # destination = "/var/lib/litefs"
 [http_service]
   internal_port = 3000
   force_https = true

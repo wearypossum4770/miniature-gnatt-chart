@@ -15,6 +15,8 @@ ENV NODE_ENV production
 # Install openssl for Prisma
 RUN apt-get update && apt-get install -y openssl sqlite3 --no-install-recommends && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Prepare for LiteFS installation
+# apt-get install -y ca-certificates fuse3
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
@@ -28,8 +30,11 @@ FROM base as production-deps
 
 WORKDIR /myapp
 
+# Install LiteFS
+# COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+
 COPY --from=deps /myapp/node_modules /myapp/node_modules
-copy package.json bun.lockb .npmrc ./
+COPY package.json bun.lockb .npmrc ./
 RUN bun --bun install --production
 
 # Build the app

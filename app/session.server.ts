@@ -5,6 +5,7 @@ import { type User, getUserById } from "~/models/user.server";
 import { defineCookie } from "@/cookie.server";
 import { generateTimestamp, isWithinExpirationDate } from "@/utilities/calendar/config";
 import { redis } from "@/cache.server";
+import { Ratelimit } from "@upstash/ratelimit";
 ensureEnvVar(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
 type CookieContext = {
@@ -43,13 +44,41 @@ export const setupSessionStorage = (sessionSecret?: string, env?: string) =>
 
 export const sessionStorage = setupSessionStorage(process.env.SESSION_SECRET, process.env.NODE_ENV);
 
+export const headerAddressNames = new Set([
+  "Fly-Client-IP",
+  "CF-Connecting-IP",
+  "X-Client-IP",
+  "X-Forwarded-For",
+  "HTTP-X-Forwarded-For",
+  "Fastly-Client-Ip",
+  "True-Client-Ip",
+  "X-Real-IP",
+  "X-Cluster-Client-IP",
+  "X-Forwarded",
+  "Forwarded-For",
+  "Forwarded",
+  "DO-Connecting-IP" /** Digital ocean app platform */,
+  "oxygen-buyer-ip" /** Shopify oxygen platform */,
+]);
+export const setCookieHeader = (
+  cookieValue: Awaited<ReturnType<typeof sessionStorage.destroySession | typeof sessionStorage.commitSession>>,
+) => ({
+  headers: { "Set-Cookie": cookieValue },
+});
 export const getHeaderCookie = ({ headers }: Request) => headers.get("Cookie");
 
 export const getSessionInformation = (request: Request) => sessionStorage.getSession(getHeaderCookie(request));
 
 export const getSession = async (request: Request) => getSessionInformation(request);
 
+export const getClientAddress = ({ headers }: Request) =>
+  headers.get("Fly-Client-IP") ?? headers.get("x-forwarded-for") ?? headers.get("X-Forwarded-For");
+
+const respectRateLimit = () => {};
+
 const cacheStash = ({ userId, notAfter }: CookieController) => redis.hset(userId, { userId, notAfter });
+
+const checkCache = ({ userId, notAfter }: CookieController) => redis.get();
 export const setSession = async (userId: string, session: SessionController) => {
   const notAfter = new Date(Date.now() + ONE_HOUR_MILLISECONDS);
   await Promise.allSettled([
@@ -60,7 +89,8 @@ export const setSession = async (userId: string, session: SessionController) => 
   return session;
 };
 
-// export const saveSession = (session: SessionController)
+export const isFutureDate = (timestamp: number): boolean => timestamp > Date.now();
+
 export const commitSession = () => sessionStorage.commitSession;
 
 export const setSessionInformation = ({ request, userId }: SessionContext) =>
@@ -92,9 +122,10 @@ export async function getUser(request: Request) {
 }
 
 export async function requireUserId(request: Request, redirectTo: string = new URL(request.url).pathname) {
+  console.log({ redirectTo, request });
   const userId = await getUserId(request);
   if (userId) return userId;
-  throw redirect(`/login?${new URLSearchParams([["redirectTo", redirectTo]])}`);
+  throw redirect(`/login?${new URLSearchParams([["redirectTo", redirectTo ?? ""]])}`);
 }
 
 export async function requireUser(request: Request) {
@@ -105,16 +136,18 @@ export async function requireUser(request: Request) {
 
   throw await logout(request);
 }
-export const setUserSession = (session: ReturnType<typeof getSession>) => {};
+export const setUserSession = (session: SessionController) => {};
+
 export async function createUserSession({ request, userId, remember, redirectTo }: SessionAttributes) {
   const session = await setSessionInformation({ request, userId });
-  return redirect(redirectTo ?? "/", {
-    headers: {
-      "Set-Cookie": await sessionStorage.commitSession(session, {
+  return redirect(
+    redirectTo ?? "/",
+    setCookieHeader(
+      await sessionStorage.commitSession(session, {
         maxAge: remember ? SEVEN_DAYS : ONE_HOUR_MILLISECONDS,
       }),
-    },
-  });
+    ),
+  );
 }
 
 export const unsetUserSession = (session: SessionController) =>
@@ -125,10 +158,5 @@ export const destroySession = async (request: Request) => getSession(request).th
 export async function logout(request: Request) {
   const session = await getSession(request);
   //   await destroySession(request);
-
-  return redirect("/", {
-    headers: {
-      "Set-Cookie": await sessionStorage.destroySession(session),
-    },
-  });
+  return redirect("/", setCookieHeader(await sessionStorage.destroySession(session)));
 }
