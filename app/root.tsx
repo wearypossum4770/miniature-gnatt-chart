@@ -10,7 +10,7 @@ import tableStyle from "@/styles/table.css";
 import sidebarStyle from "@/styles/sidebar.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { type LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 
 // biome-ignore format: the array should not be formatted
 // prettier-ignore
@@ -29,7 +29,9 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return json({ ok: true });
+  const clientIp = request.headers.get('Fly-Client-IP')
+
+  return json({ ok: true, clientIp });
 };
 export const meta: MetaFunction = () => [
   {
@@ -41,6 +43,8 @@ export const meta: MetaFunction = () => [
   },
 ];
 export default function App() {
+  const data = useLoaderData<typeof loader>()
+
   return (
     <html lang="en">
       <head>
@@ -60,6 +64,7 @@ export default function App() {
           </ul>
         </nav>
         <main className="root-main">
+        <h1>{`Your ip address is ${data.clientIp}`}</h1>
           <Outlet />
         </main>
         <ScrollRestoration />
