@@ -15,6 +15,16 @@ export enum RateLimiterState {
   Throttled = 1,
 }
 export const STR_UNDEFINED = "undefined";
+export interface NetworkInformation {
+  downlink: number;
+  effectiveType: string;
+  rtt: number;
+  saveData: boolean;
+}
+
+export interface Navigator {
+  connection?: NetworkInformation;
+}
 export function isSessionInactive(sessionLengthInMinutes = 30) {
   const lastActive = localStorage.getItem("glean_session_last_active");
   const lastActiveDate = new Date(Number(lastActive));
