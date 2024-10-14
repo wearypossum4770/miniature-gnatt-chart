@@ -1,15 +1,15 @@
-import projectviewStyle from "@/styles/project-view.css";
 import navigationLinks from "@/fixtures/navigation-links.json";
 import styleColors from "@/styles/colors.css";
 import formStyle from "@/styles/forms.css";
 import mainStyle from "@/styles/main.css";
 import modalStyles from "@/styles/modals.css";
 import navigationStyle from "@/styles/navigation.css";
+import projectviewStyle from "@/styles/project-view.css";
 import cssRest from "@/styles/reset.css";
-import tableStyle from "@/styles/table.css";
 import sidebarStyle from "@/styles/sidebar.css";
+import tableStyle from "@/styles/table.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { type LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/node";
 import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 
 // biome-ignore format: the array should not be formatted

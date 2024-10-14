@@ -13,7 +13,7 @@
     "ignore": ["public/build", "build"]
   },
 
-  "formatter": { "indentStyle": "space", "lineWidth": 120 },
+  "formatter": { "indentStyle": "space", "lineWidth": 120, "enabled": true },
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -34,4 +34,5 @@
   }
 }
 
+ 
 

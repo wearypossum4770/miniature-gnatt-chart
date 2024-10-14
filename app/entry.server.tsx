@@ -6,12 +6,12 @@
 
 import { PassThrough } from "node:stream";
 
+import { corsPolicyEnforcement } from "@/utilities/security";
 import type { EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { corsPolicyEnforcement } from "@/utilities/security";
 const ABORT_DELAY = 5_000;
 
 const handleRequest = (
