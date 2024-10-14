@@ -28,11 +28,13 @@ export const ratelimit = singleton(
     }),
 );
 
-export const cacheRateLimitWrapper = (fn: CallableFunction) => async(...args: unknown[]) => {
+export const cacheRateLimitWrapper =
+  (fn: CallableFunction) =>
+  async (...args: unknown[]) => {
     try {
-        return fn(...args)
+      return fn(...args);
     } catch (error) {
-        return null
+      return null;
     }
-};
+  };
 export { redis };

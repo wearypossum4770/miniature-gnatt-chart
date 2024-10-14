@@ -78,7 +78,7 @@ const respectRateLimit = () => {};
 
 const cacheStash = ({ userId, notAfter }: CookieController) => redis.hset(userId, { userId, notAfter });
 
-const checkCache = ({ userId, notAfter }: CookieController) => redis.get();
+const checkCache = ({ userId, notAfter }: CookieController) => {};
 export const setSession = async (userId: string, session: SessionController) => {
   const notAfter = new Date(Date.now() + ONE_HOUR_MILLISECONDS);
   await Promise.allSettled([
