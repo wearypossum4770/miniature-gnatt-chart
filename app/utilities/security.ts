@@ -35,12 +35,11 @@ export function safeRedirect(
 
 export const preventBackNavigation = () => {};
 export const antiClickjack = () => {
-  if (self!== top) return null;
+  if (self !== top) return null;
 
   const antiClickjack = document.getElementById("antiClickjack") as HTMLElement;
   if (antiClickjack instanceof HTMLElement) return antiClickjack.parentNode?.removeChild(antiClickjack);
-  return (top.location === self.location);
-
+  return top.location === self.location;
 };
 
 export const setCsrfToken = ({ headers }: Request) => headers.set("X-XSRF-TOKEN", "");

@@ -25,7 +25,7 @@ export default defineConfig({
       serverBuildFile: "index.ts",
       routes: (definedRoutes) =>
         definedRoutes((route) => {
-          route(".well-known/change-password", "change-password")
+          route(".well-known/change-password", "change-password");
         }),
     }),
     codecovRemixVitePlugin({
