@@ -12,8 +12,8 @@
     "ignore": ["public/build", "build"]
   },
   "javascript": {
-  "formatter": {
-    "quoteStyle": "double"
+    "formatter": {
+      "quoteStyle": "double"
     }
   },
   "json": {
