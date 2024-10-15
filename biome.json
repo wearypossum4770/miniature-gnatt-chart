@@ -5,7 +5,6 @@
   },
   "css": {
     "formatter": {
-      "indentStyle": "space",
       "enabled": true
     }
   },
@@ -15,6 +14,11 @@
   "javascript": {
   "formatter": {
     "quoteStyle": "double"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true
     }
   },
   "formatter": { "indentStyle": "space", "lineWidth": 120, "enabled": true },
