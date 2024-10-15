@@ -9,22 +9,22 @@ import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 
 const hydrate = () =>
-	startTransition(() => {
-		hydrateRoot(
-			document,
-			<StrictMode>
-				<RemixBrowser />
-			</StrictMode>,
-			{
-				onRecoverableError: (error, errorInfo) => {
-					console.log("Uncaught error", error, errorInfo.componentStack, errorInfo.digest);
-				},
-			},
-		);
-	});
+  startTransition(() => {
+    hydrateRoot(
+      document,
+      <StrictMode>
+        <RemixBrowser />
+      </StrictMode>,
+      {
+        onRecoverableError: (error, errorInfo) => {
+          console.log("Uncaught error", error, errorInfo.componentStack, errorInfo.digest);
+        },
+      },
+    );
+  });
 
 if (typeof requestIdleCallback === "function") {
-	requestIdleCallback(hydrate);
+  requestIdleCallback(hydrate);
 } else {
-	setTimeout(hydrate, 1);
+  setTimeout(hydrate, 1);
 }

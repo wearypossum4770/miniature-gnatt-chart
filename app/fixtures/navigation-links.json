@@ -1,62 +1,62 @@
 [
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Home",
-		"id": 7,
-		"to": "/"
-	},
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Help Desk",
-		"id": 1,
-		"to": "/feature-suggestions"
-	},
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Login",
-		"id": 2,
-		"to": "/login"
-	},
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Health Check",
-		"id": 4,
-		"to": "/healthcheck"
-	},
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Logout",
-		"id": 5,
-		"to": "/logout"
-	},
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": true },
-		"label": "Notes",
-		"id": 6,
-		"to": "/notes"
-	},
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Home",
+    "id": 7,
+    "to": "/"
+  },
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Help Desk",
+    "id": 1,
+    "to": "/feature-suggestions"
+  },
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Login",
+    "id": 2,
+    "to": "/login"
+  },
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Health Check",
+    "id": 4,
+    "to": "/healthcheck"
+  },
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Logout",
+    "id": 5,
+    "to": "/logout"
+  },
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": true },
+    "label": "Notes",
+    "id": 6,
+    "to": "/notes"
+  },
 
-	{
-		"meta": { "requiresCamera": false, "requiresAuth": false },
-		"label": "Sign Up!",
-		"id": 10,
-		"to": "/join"
-	},
-	{
-		"meta": { "requiresAuth": false, "requiresCamera": false },
-		"label": "Newsletter",
-		"id": 11,
-		"to": "/newsletter"
-	},
+  {
+    "meta": { "requiresCamera": false, "requiresAuth": false },
+    "label": "Sign Up!",
+    "id": 10,
+    "to": "/join"
+  },
+  {
+    "meta": { "requiresAuth": false, "requiresCamera": false },
+    "label": "Newsletter",
+    "id": 11,
+    "to": "/newsletter"
+  },
 
-	{
-		"meta": {
-			"username": "george.washington",
-			"requiresCamera": false,
-			"requiresAuth": false
-		},
-		"label": "Projects",
-		"id": 12,
-		"to": "/projects"
-	}
+  {
+    "meta": {
+      "username": "george.washington",
+      "requiresCamera": false,
+      "requiresAuth": false
+    },
+    "label": "Projects",
+    "id": 12,
+    "to": "/projects"
+  }
 ]

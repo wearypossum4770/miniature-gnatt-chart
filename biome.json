@@ -17,7 +17,7 @@
     "quoteStyle": "double"
     }
   },
-  "formatter": { "indentStyle": "tab", "lineWidth": 120, "enabled": true },
+  "formatter": { "indentStyle": "space", "lineWidth": 120, "enabled": true },
   "vcs": {
     "enabled": false,
     "clientKind": "git",

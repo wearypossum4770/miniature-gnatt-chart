@@ -13,15 +13,15 @@ const cache = String.fromCharCode.apply(
 );
 
 export const safeCrypto = (buffer: Uint8Array) => {
-	if (typeof window === "undefined" && typeof document === "undefined") {
-		return import("node:crypto").then(({ getRandomValues }) => Promise.resolve(getRandomValues(buffer)));
-	}
-	return crypto.getRandomValues(buffer);
+  if (typeof window === "undefined" && typeof document === "undefined") {
+    return import("node:crypto").then(({ getRandomValues }) => Promise.resolve(getRandomValues(buffer)));
+  }
+  return crypto.getRandomValues(buffer);
 };
 export const randomlyFillBuffer = (length?: number): Uint8Array =>
-	new Uint8Array(typeof length === "number" && length < CHALLENGE_LENGTH ? length : USERNAME_LENGTH);
+  new Uint8Array(typeof length === "number" && length < CHALLENGE_LENGTH ? length : USERNAME_LENGTH);
 export const generateRamdomAlphanumeric = async (length: number) => {
-	const buffer = randomlyFillBuffer(length);
-	safeCrypto(buffer);
-	return Array.from(buffer).reduce((a, b) => a + cache[b % cache.length], "");
+  const buffer = randomlyFillBuffer(length);
+  safeCrypto(buffer);
+  return Array.from(buffer).reduce((a, b) => a + cache[b % cache.length], "");
 };

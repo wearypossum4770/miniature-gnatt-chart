@@ -1,38 +1,38 @@
 import invariant from "tiny-invariant";
 
 type AcceptableFiles = {
-	[mimeType: string]: string[];
+  [mimeType: string]: string[];
 };
 interface FilePickerTypes {
-	description?: string;
-	accept: AcceptableFiles;
+  description?: string;
+  accept: AcceptableFiles;
 }
 interface FilePickerOptions {
-	excludeAcceptAllOption?: boolean;
-	id?: string;
-	multiple?: boolean;
-	startIn?: string;
-	types?: FilePickerTypes[];
+  excludeAcceptAllOption?: boolean;
+  id?: string;
+  multiple?: boolean;
+  startIn?: string;
+  types?: FilePickerTypes[];
 }
 declare global {
-	interface Window {
-		/**
-		 *  Available only in secure contexts.
-		 * @description shows a file picker, allowing a user to select a file or multiple files.
-		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker}
-		 * @param { object } init
-		 * @param { boolean } init.excludeAcceptAllOption -
-		 * @param { string } init.id - primary key for directories, state kept across operations.
-		 * @param { boolean } init.multiple - allows user to select multiple fles.
-		 * @param { string } init.startIn - the directory to open the dialog in.
-		 * @param { FilePickerTypes[] } init.types - allowed files
-		 * @throws { AbortError } user selected a sensitive or dangerous file or dismissed the prompt without making a selection
-		 * @throws { TypeError } accept types cannot be processed.
-		 * @throws { SecurityError } action was not called via user interaction, or blocked by [same-origin-policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
-		 * @returns { Promise<FileSystemFileHandle[]> }
-		 */
-		showOpenFilePicker: (init?: FilePickerOptions) => Promise<FileSystemFileHandle[]>;
-	}
+  interface Window {
+    /**
+     *  Available only in secure contexts.
+     * @description shows a file picker, allowing a user to select a file or multiple files.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker}
+     * @param { object } init
+     * @param { boolean } init.excludeAcceptAllOption -
+     * @param { string } init.id - primary key for directories, state kept across operations.
+     * @param { boolean } init.multiple - allows user to select multiple fles.
+     * @param { string } init.startIn - the directory to open the dialog in.
+     * @param { FilePickerTypes[] } init.types - allowed files
+     * @throws { AbortError } user selected a sensitive or dangerous file or dismissed the prompt without making a selection
+     * @throws { TypeError } accept types cannot be processed.
+     * @throws { SecurityError } action was not called via user interaction, or blocked by [same-origin-policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
+     * @returns { Promise<FileSystemFileHandle[]> }
+     */
+    showOpenFilePicker: (init?: FilePickerOptions) => Promise<FileSystemFileHandle[]>;
+  }
 }
 export default {};
 export const USER_SESSION_KEY = "userId";
@@ -62,13 +62,13 @@ export const illegalCharacters = new Set<string>([
 ]);
 
 export const ensureEnvVar = (envar: unknown, errorMessage: string) =>
-	typeof envar === "string" ? invariant(envar, errorMessage) : null;
+  typeof envar === "string" ? invariant(envar, errorMessage) : null;
 
 export class InvalidDateException extends Error {
-	constructor(date: unknown) {
-		super(
-			`Analysis of the value given for the date: "${date}", determined it was invalid. Please correct and try again.`,
-		);
-	}
+  constructor(date: unknown) {
+    super(
+      `Analysis of the value given for the date: "${date}", determined it was invalid. Please correct and try again.`,
+    );
+  }
 }
 // let o = new URL(window.location.href,window.location.origin);

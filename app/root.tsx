@@ -29,48 +29,48 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const clientIp = request.headers.get("Fly-Client-IP");
+  const clientIp = request.headers.get("Fly-Client-IP");
 
-	return json({ ok: true, clientIp });
+  return json({ ok: true, clientIp });
 };
 export const meta: MetaFunction = () => [
-	{
-		charset: "utf-8",
-		title: "Remix 💚 Prisma",
-		keywords: ["docker-compose", "docker", "stack"],
-		author: "Dev Team",
-		viewport: "width=device-width,initial-scale=1",
-	},
+  {
+    charset: "utf-8",
+    title: "Remix 💚 Prisma",
+    keywords: ["docker-compose", "docker", "stack"],
+    author: "Dev Team",
+    viewport: "width=device-width,initial-scale=1",
+  },
 ];
 export default function App() {
-	const data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
 
-	return (
-		<html lang="en">
-			<head>
-				<meta charSet="utf-8" />
-				{/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com;" /> */}
-				<Meta />
-				<Links />
-			</head>
-			<body>
-				<nav id="main-navigation-top-container" className="main-navigation-menu">
-					<ul>
-						{navigationLinks.map(({ to, label, id, meta }) => (
-							<li key={id} id={`main-navigaton-link-${id}`}>
-								<Link to={to}>{label}</Link>
-							</li>
-						))}
-					</ul>
-				</nav>
-				<main className="root-main">
-					<h1>{`Your ip address is ${data.clientIp}`}</h1>
-					<Outlet />
-				</main>
-				<ScrollRestoration />
-				<Scripts crossOrigin="anonymous" />
-				<LiveReload />
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        {/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://fonts.googleapis.com;" /> */}
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <nav id="main-navigation-top-container" className="main-navigation-menu">
+          <ul>
+            {navigationLinks.map(({ to, label, id }) => (
+              <li key={id} id={`main-navigaton-link-${id}`}>
+                <Link to={to}>{label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <main className="root-main">
+          <h1>{`Your ip address is ${data.clientIp}`}</h1>
+          <Outlet />
+        </main>
+        <ScrollRestoration />
+        <Scripts crossOrigin="anonymous" />
+        <LiveReload />
+      </body>
+    </html>
+  );
 }

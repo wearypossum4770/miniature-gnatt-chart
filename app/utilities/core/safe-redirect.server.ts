@@ -9,13 +9,13 @@ import { DEFAULT_REDIRECT } from "@/utilities/core/config";
  * @param {string} defaultRedirect The redirect to use if the to is unsafe.
  */
 export function safeRedirect(
-	to: FormDataEntryValue | string | null | undefined,
-	defaultRedirect: string = DEFAULT_REDIRECT,
+  to: FormDataEntryValue | string | null | undefined,
+  defaultRedirect: string = DEFAULT_REDIRECT,
 ) {
-	if (!to || typeof to !== "string") return defaultRedirect;
-	const trimmed = to.trim();
-	if (!trimmed.startsWith("/") || trimmed.startsWith("//") || trimmed.startsWith("/\\") || trimmed.includes(".."))
-		return defaultRedirect;
+  if (!to || typeof to !== "string") return defaultRedirect;
+  const trimmed = to.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//") || trimmed.startsWith("/\\") || trimmed.includes(".."))
+    return defaultRedirect;
 
-	return to ?? DEFAULT_REDIRECT;
+  return to ?? DEFAULT_REDIRECT;
 }
