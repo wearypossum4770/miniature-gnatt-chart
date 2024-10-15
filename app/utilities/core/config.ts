@@ -71,8 +71,8 @@ export const isVisible = () => {
 };
 export const extractBooleanFromString = (v: string): boolean | null => {
   const value = v.toLocaleLowerCase();
-  if (value === "true") return true;
-  if (value === "false") return false;
+  if (/true/i.test(value)) return true;
+  if (/false/i.test(value)) return false;
   return null;
 };
 
