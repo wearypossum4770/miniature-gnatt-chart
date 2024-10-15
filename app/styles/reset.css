@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap&family=Noto+Sans+JP:wght@100..900&display=swap&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&display=swap");
 *,
 *::before,
 *::after,
@@ -11,7 +11,8 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  font-family: BlinkMacSystemFont, -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+  font-family:
+    BlinkMacSystemFont, -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", "Figtree", "Poppins", "Noto Sans Hebrew", "Oxygen", "Noto Kufi Arabic", "Noto Sans JP", Arial,
     "Apple Color Emoji", sans-serif;
 }
