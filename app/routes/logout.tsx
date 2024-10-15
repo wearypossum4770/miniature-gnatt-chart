@@ -13,7 +13,7 @@ const LogoutPage = () => {
   useEffect(() => {
     const logoutForm = document.getElementById("logout-page-form");
     if (logoutForm && ok) logoutForm.click();
-  }, []);
+  }, [ok]);
   return (
     <Form action="/logout" method="post">
       <button

@@ -8,7 +8,7 @@ export const reset = () => Promise.all([prisma.user.deleteMany(), prisma.project
 export const seed = async () => Promise.all([generateUserSeeds()]);
 
 seed()
-  .then(e=>console.log(JSON.parse(JSON.stringify(e, null, 3))))
+  .then((e) => console.log(JSON.parse(JSON.stringify(e, null, 3))))
   .catch((e) => {
     console.error(e);
     process.exit(1);

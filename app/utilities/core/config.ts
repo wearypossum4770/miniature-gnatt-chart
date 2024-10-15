@@ -27,7 +27,6 @@ export type ConnectionType =
 
 export type EffectiveConnectionType = "slow-2g" | "2g" | "3g" | "4g";
 
-export const STR_UNDEFINED = "undefined";
 export interface NetworkInformation {
   downlink: number;
   type?: ConnectionType;
@@ -48,7 +47,7 @@ export function isSessionInactive(sessionLengthInMinutes = 30) {
 export const isNumber = (v: unknown): v is number => typeof v === "number" && Number.isNaN(v);
 export const isBoolean = (v: unknown): v is boolean => typeof v === "boolean";
 export const isInteger = (v: unknown): v is number => isNumber(v) && Number.isInteger(v);
-export const isUndefined = (v: unknown): v is undefined => typeof v === STR_UNDEFINED;
+export const isUndefined = (v: unknown): v is undefined => typeof v === "undefined";
 export const isString = (v: unknown): v is string => typeof v === "string";
 export const getMonotonicNow = () => Math.round(typeof performance === "undefined" ? Date.now() : performance.now());
 export const isObject = (v: unknown): v is object => isObjectLike(v) && v?.constructor?.name === "Object";
@@ -58,12 +57,12 @@ export const isMapLike = <T, K>(v: unknown): v is Map<T, K> =>
   isObjectLike(v) && ["Map", "WeakMap"].includes(v.constructor.name);
 export const isSetLike = <T>(v: unknown): v is Set<T> =>
   isObjectLike(v) && ["Set", "WeakSet"].includes(v.constructor.name);
-export const isWindowObjectUnavailable = (): boolean => typeof window === STR_UNDEFINED;
-const isWindowDefined = typeof window !== STR_UNDEFINED;
-const isDocumentDefined = typeof document !== STR_UNDEFINED;
-export const isFunction = (v: unknown): v is Function | CallableFunction => typeof v === "function";
+export const isWindowObjectUnavailable = (): boolean => typeof window === "undefined";
+const isWindowDefined = typeof window !== "undefined";
+const isDocumentDefined = typeof document !== "undefined";
+export const isFunction = (v: unknown): v is CallableFunction => typeof v === "function";
 export const isPromiseLike = <T>(v: unknown): v is Promise<T> => isFunction(v) && v.constructor.name === "Promise";
-export const hasRequestAnimationFrame = () => isWindowDefined && typeof window.requestAnimationFrame !== STR_UNDEFINED;
+export const hasRequestAnimationFrame = () => isWindowDefined && typeof window.requestAnimationFrame !== "undefined";
 export function getCurrentTimeInNanoSeconds() {
   if (typeof process === "undefined") return getMonotonicNow();
   const [first, second] = process.hrtime();
