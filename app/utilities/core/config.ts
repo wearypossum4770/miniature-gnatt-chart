@@ -14,17 +14,30 @@ export enum RateLimiterState {
   Incrementing = 0,
   Throttled = 1,
 }
+export type ConnectionType =
+  | "bluetooth"
+  | "cellular"
+  | "ethernet"
+  | "mixed"
+  | "none"
+  | "other"
+  | "unknown"
+  | "wifi"
+  | "wimax";
+
+export type EffectiveConnectionType = "slow-2g" | "2g" | "3g" | "4g";
+
 export const STR_UNDEFINED = "undefined";
 export interface NetworkInformation {
   downlink: number;
-  effectiveType: string;
+  type?: ConnectionType;
+  effectiveType: EffectiveConnectionType;
   rtt: number;
+  downlinkMax?: number;
   saveData: boolean;
+  onchange(): void;
 }
 
-export interface Navigator {
-  connection?: NetworkInformation;
-}
 export function isSessionInactive(sessionLengthInMinutes = 30) {
   const lastActive = localStorage.getItem("glean_session_last_active");
   const lastActiveDate = new Date(Number(lastActive));
@@ -57,13 +70,12 @@ export function getCurrentTimeInNanoSeconds() {
   return first * 1_000_000_000 + second;
 }
 export const IS_SERVER = !isWindowDefined || "Deno" in window;
-
-export const navigatorConnection = typeof navigator !== "undefined" && navigator.connection;
+export const navigatorConnectionGuard = (value: unknown): value is NetworkInformation => "connection" in navigator;
 // Adjust the config based on slow connection status (<= 70Kbps).
 export const slowConnection =
   !IS_SERVER &&
-  navigatorConnection &&
-  (["slow-2g", "2g"].includes(navigatorConnection.effectiveType) || navigatorConnection.saveData);
+  navigatorConnectionGuard(navigator) &&
+  (["slow-2g", "2g"].includes(navigator.effectiveType) || navigator.saveData);
 
 export const isVisible = () => {
   const visibilityState = isDocumentDefined && document.visibilityState;
