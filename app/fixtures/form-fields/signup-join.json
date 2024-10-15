@@ -1,90 +1,90 @@
 [
-  {
-    "id": "first-name",
-    "ariaDescribedby": "first-name-error",
-    "required": true,
-    "ariaInvalid": false,
-    "events": [],
-    "name": "fistName",
-    "type": "text",
-    "autoComplete": "given-name",
-    "label": "First (Given) Name"
-  },
-  {
-    "id": "middle-name",
-    "ariaDescribedby": "middle-name-error",
-    "type": "text",
-    "name": "middleName",
-    "label": "Middle Name",
-    "required": false,
-    "ariaInvalid": false,
-    "events": [],
-    "autoComplete": "additional-name"
-  },
-  {
-    "name": "lastName",
-    "id": "last-name",
-    "ariaDescribedby": "last-name-error",
-    "type": "text",
-    "label": "Last (Family) Name",
-    "required": true,
-    "ariaInvalid": false,
-    "events": [],
-    "autoComplete": "family-name"
-  },
-  {
-    "id": "email",
-    "required": true,
-    "name": "email",
-    "type": "email",
-    "autoComplete": "email",
-    "ariaInvalid": false,
-    "events": [],
-    "label": "Email address",
-    "ariaDescribedby": "email-error"
-  },
-  {
-    "id": "username",
-    "required": true,
-    "name": "username",
-    "type": "username",
-    "autoComplete": "username",
-    "ariaInvalid": false,
-    "ariaDescribedby": "username-error",
-    "events": [],
-    "label": "Username"
-  },
-  {
-    "events": ["change"],
-    "label": "Give me a random username.",
-    "id": "randomizeUsername",
-    "required": false,
-    "type": "checkbox",
-    "ariaDescribedby": "randomize-username-help-text",
-    "name": "randomizeUsername"
-  },
-  {
-    "id": "password",
-    "required": true,
-    "name": "password",
-    "type": "password",
-    "ariaInvalid": false,
-    "events": [],
-    "label": "Enter Password (less secure)",
-    "helpText": "If you use a password that you use for other places it may allow hackers to steal your data from other sites and use it here. This website is designed to allow your browser to securely create and store a password. This is important because it will help prevent you from entering your password into a bad website that will steal your password.",
-    "ariaDescribedby": "password-error",
-    "autoComplete": "new-password"
-  },
-  {
-    "id": "confirm-password",
-    "required": true,
-    "name": "confirmPassword",
-    "type": "password",
-    "ariaInvalid": false,
-    "events": [],
-    "label": "Confirm Password (less secure)",
-    "helpText": "",
-    "ariaDescribedby": "confirm-password-error",
-    "autoComplete": "new-password"
-  }
+	{
+		"id": "first-name",
+		"ariaDescribedby": "first-name-error",
+		"required": true,
+		"ariaInvalid": false,
+		"events": [],
+		"name": "fistName",
+		"type": "text",
+		"autoComplete": "given-name",
+		"label": "First (Given) Name"
+	},
+	{
+		"id": "middle-name",
+		"ariaDescribedby": "middle-name-error",
+		"type": "text",
+		"name": "middleName",
+		"label": "Middle Name",
+		"required": false,
+		"ariaInvalid": false,
+		"events": [],
+		"autoComplete": "additional-name"
+	},
+	{
+		"name": "lastName",
+		"id": "last-name",
+		"ariaDescribedby": "last-name-error",
+		"type": "text",
+		"label": "Last (Family) Name",
+		"required": true,
+		"ariaInvalid": false,
+		"events": [],
+		"autoComplete": "family-name"
+	},
+	{
+		"id": "email",
+		"required": true,
+		"name": "email",
+		"type": "email",
+		"autoComplete": "email",
+		"ariaInvalid": false,
+		"events": [],
+		"label": "Email address",
+		"ariaDescribedby": "email-error"
+	},
+	{
+		"id": "username",
+		"required": true,
+		"name": "username",
+		"type": "username",
+		"autoComplete": "username",
+		"ariaInvalid": false,
+		"ariaDescribedby": "username-error",
+		"events": [],
+		"label": "Username"
+	},
+	{
+		"events": ["change"],
+		"label": "Give me a random username.",
+		"id": "randomizeUsername",
+		"required": false,
+		"type": "checkbox",
+		"ariaDescribedby": "randomize-username-help-text",
+		"name": "randomizeUsername"
+	},
+	{
+		"id": "password",
+		"required": true,
+		"name": "password",
+		"type": "password",
+		"ariaInvalid": false,
+		"events": [],
+		"label": "Enter Password (less secure)",
+		"helpText": "If you use a password that you use for other places it may allow hackers to steal your data from other sites and use it here. This website is designed to allow your browser to securely create and store a password. This is important because it will help prevent you from entering your password into a bad website that will steal your password.",
+		"ariaDescribedby": "password-error",
+		"autoComplete": "new-password"
+	},
+	{
+		"id": "confirm-password",
+		"required": true,
+		"name": "confirmPassword",
+		"type": "password",
+		"ariaInvalid": false,
+		"events": [],
+		"label": "Confirm Password (less secure)",
+		"helpText": "",
+		"ariaDescribedby": "confirm-password-error",
+		"autoComplete": "new-password"
+	}
 ]

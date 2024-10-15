@@ -14,9 +14,9 @@ const cache = String.fromCharCode.apply(
 );
 
 export const randomlyFillBuffer = (length?: number): Uint8Array =>
-  new Uint8Array(typeof length === "number" && length < CHALLENGE_LENGTH ? length : USERNAME_LENGTH);
+	new Uint8Array(typeof length === "number" && length < CHALLENGE_LENGTH ? length : USERNAME_LENGTH);
 export const generateRamdomAlphanumeric = (length: number) => {
-  const buffer = randomlyFillBuffer(length);
-  crypto.getRandomValues(buffer);
-  return Array.from(buffer).reduce((a, b) => a + cache[b % cache.length], "");
+	const buffer = randomlyFillBuffer(length);
+	crypto.getRandomValues(buffer);
+	return Array.from(buffer).reduce((a, b) => a + cache[b % cache.length], "");
 };
