@@ -13,7 +13,7 @@ body {
   text-rendering: optimizeSpeed;
   font-family:
       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
-  
+    "Figtree", "Poppins", "Noto Sans Hebrew", "Oxygen", "Noto Kufi Arabic", "Noto Sans JP", Arial, "Apple Color Emoji", sans-serif;
 }
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
