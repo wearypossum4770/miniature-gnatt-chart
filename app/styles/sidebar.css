@@ -1,0 +1,16 @@
+.projects-sidebar {
+  padding: 0 1rem;
+}
+aside.toast-notifications {
+  width: 0px;
+  float: right;
+  height: 80px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 20px rgba(75, 50, 50, 0.05);
+  border-left: 8px solid #47d764;
+  border-radius: 7px;
+  /* transform: translate(400px); */
+  transition: width 1s;
+  cursor: pointer;
+}
