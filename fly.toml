@@ -18,9 +18,11 @@ swap_size_mb = 512
 [metrics]
 port = 9091
 path = "/metrics"
-
+[env]
+  BUN_PORT="3000"
+  FORCE_COLOR="1"
 [build]
-image = "flyio/redis:6.2.6"
+# image = "flyio/redis:6.2.6"
 [[mounts]]
   source = 'data'
   destination = '/data'
