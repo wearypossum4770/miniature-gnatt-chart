@@ -29,9 +29,8 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const clientIp = request.headers.get("Fly-Client-IP");
-
-  return json({ ok: true, clientIp });
+  console.log(process.env)
+  return json({ ok: true });
 };
 export const meta: MetaFunction = () => [
   {
@@ -43,8 +42,7 @@ export const meta: MetaFunction = () => [
   },
 ];
 export default function App() {
-  const data = useLoaderData<typeof loader>();
-
+  console.log(String.prototype.toWellFormed, 'String.prototype.toWellFormed')
   return (
     <html lang="en">
       <head>
@@ -64,7 +62,6 @@ export default function App() {
           </ul>
         </nav>
         <main className="root-main">
-          <h1>{`Your ip address is ${data.clientIp}`}</h1>
           <Outlet />
         </main>
         <ScrollRestoration />
