@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-    /* biome-ignore format: ignore to pass ci environment. */
+/* biome-ignore format: ignore to pass ci environment. */
   font-family:
     BlinkMacSystemFont, -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", "Figtree", "Poppins", "Noto Sans Hebrew", "Oxygen", "Noto Kufi Arabic", "Noto Sans JP", Arial,
