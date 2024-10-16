@@ -5,7 +5,7 @@ const passwordTypeGuard = (password: unknown): password is string => typeof pass
 const passwordEmptyGuard = (password: string): password is string => password.trim().length > 0;
 
 const passwordEncodingGuard = (password: string): password is string => {
-  if (typeof String.prototype.isWellFormed === 'undefined') return false
+  if (typeof String.prototype.isWellFormed === "undefined") return false;
   if (!password.isWellFormed()) return false;
   for (const char of password) {
     if (illegalCharacters.has(char)) return false;

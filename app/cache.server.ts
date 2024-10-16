@@ -1,9 +1,9 @@
 import { singleton } from "@/singleton.server";
+import { getClientIpAddress } from "@/utilities/analytics/server-actions.server";
 import { ensureEnvVar } from "@/utilities/index";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { getClientIpAddress } from '@/utilities/analytics/server-actions.server'
-import { LoaderFunctionArgs } from "@remix-run/node";
 ensureEnvVar(process.env.UPSTASH_REDIS_REST_URL, "");
 ensureEnvVar(process.env.UPSTASH_REDIS_REST_TOKEN, "");
 const cache = new Map(); // must be outside of your serverless function handler
@@ -29,15 +29,14 @@ export const ratelimit = singleton(
     }),
 );
 export const cacheRateLimitCheck = async ({ request }: LoaderFunctionArgs) => {
-  const { clientId } = getClientIpAddress(request)
-  const { success,  } = await ratelimit.limit(clientId)
-  return { clientId, success}
-}
+  const { clientId } = getClientIpAddress(request);
+  const { success } = await ratelimit.limit(clientId);
+  return { clientId, success };
+};
 export const cacheRateLimitWrapper =
   (fn: CallableFunction) =>
   async (...args: unknown[]) => {
     try {
-      
       return await Promise.resolve(fn(...args));
     } catch (_error) {
       return null;

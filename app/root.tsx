@@ -29,7 +29,7 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  console.log(process.env)
+  console.log(process.env);
   return json({ ok: true });
 };
 export const meta: MetaFunction = () => [
@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => [
   },
 ];
 export default function App() {
-  console.log(String.prototype.toWellFormed, 'String.prototype.toWellFormed')
+  console.log(String.prototype.toWellFormed, "String.prototype.toWellFormed");
   return (
     <html lang="en">
       <head>
