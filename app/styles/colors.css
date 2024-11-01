@@ -19,7 +19,16 @@
   --muted-rose: #9e7070;
   --cool-mint: #c5d6d6;
   --charcoal-black: #202020;
-
+  --federal-yellow: #fbb035;
+  --ochre-yellow: #ffe3a5;
+  --safety-red: #bf2027;
+  --colonial-red: #c8482e;
+  --brick-red: #d82c20;
+  --ocean-blue: #118acb;
+  --pearl-white: #d8d6d9;
+  --federal-light-gray: #8ca6b4;
+  --federal-dark-gray: #5e6f6f;
+  /* #690 */
   --pale-aqua: var(--cool-mint);
   --dusty-mauve: var(--muted-rose);
   --light-ash-gray: var(--pale-silver);

@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import type { User } from "~/models/user.server";
 
 export { safeRedirect } from "@/utilities/core/safe-redirect.server";
+export { emailValidation } from "@/utilities/validations/email-validator";
+export { safeFormData } from "@/utilities/core/safe-form-data";
 
 /**
  * This base hook is used in other hooks to quickly search for specific data

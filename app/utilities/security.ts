@@ -53,8 +53,9 @@ export type CorsPolicy = {
   origin: string;
   methods: string[];
 };
+const transportTimes = new Set<number>([300, 604_800, 2_592_000, 10_886_400, 31_536_000, 63_072_000]);
 export const corsPolicyEnforcement = (headers: Headers) => {
-  headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  headers.set("Strict-Transport-Security", "max-age=10886400; includeSubDomains");
   headers.set("X-Frame-Options", "deny");
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("X-Permitted-Cross-Domain-Policies", "none");

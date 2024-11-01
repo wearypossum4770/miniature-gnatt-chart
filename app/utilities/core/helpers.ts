@@ -137,7 +137,13 @@ export const extractFormData = <T extends object>(form: FormData, keys: string[]
   }, {});
 
 export const handleErrors = () => {};
-
+export const isFieldHidden = (value: unknown, field?: string): boolean => {
+  if (field) console.log(value, field);
+  if (typeof value === "object" && value instanceof Object && typeof field !== "undefined")
+    return Object.hasOwn(value, field);
+  if (typeof value === "string") return value.length === 0;
+  return true;
+};
 const isUnicodeSupported = (): boolean => false;
 export const info = isUnicodeSupported() ? "ℹ" : "i";
 export const success = isUnicodeSupported() ? "✔" : "√";

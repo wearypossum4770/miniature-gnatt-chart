@@ -11,6 +11,7 @@ export type TypedArray =
   | BigInt64Array
   | BigUint64Array;
 
+export type BrowserSafeBufferLike = ArrayBuffer | TypedArray;
 export type DateTimeLike = string | Date | number;
 
 export const isDateGuard = (value: unknown): value is Date => value instanceof Date;

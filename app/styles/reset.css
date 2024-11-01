@@ -9,6 +9,7 @@ html {
 body {
   height: 100%;
   min-height: 100vh;
+  color: #fff;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   /* biome-ignore format: ignore to pass ci environment. */
@@ -25,4 +26,8 @@ body {
     transition-duration: 0.01ms;
     scroll-behavior: auto;
   }
+}
+
+a[href] {
+  color: #fff;
 }

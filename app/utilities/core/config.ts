@@ -9,6 +9,7 @@ export const RATE_LIMITER_INTERVAL_MS = 60_000;
 export const MAX_PINGS_PER_INTERVAL = 40;
 
 export const DEFAULT_REDIRECT = "/";
+export const DEFAULT_STATUS_CODE = 200;
 
 export enum RateLimiterState {
   Incrementing = 0,
@@ -68,7 +69,7 @@ export function getCurrentTimeInNanoSeconds() {
   const [first, second] = process.hrtime();
   return first * 1_000_000_000 + second;
 }
-export const IS_SERVER = !isWindowDefined || "Deno" in window;
+export const IS_SERVER = !(typeof document !== "undefined") || "Deno" in window;
 export const navigatorConnectionGuard = (value: unknown): value is NetworkInformation => "connection" in navigator;
 // Adjust the config based on slow connection status (<= 70Kbps).
 export const slowConnection =

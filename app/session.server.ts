@@ -3,9 +3,11 @@ import { defineCookie } from "@/cookie.server";
 import { generateTimestamp, isWithinExpirationDate } from "@/utilities/calendar/config";
 import { ONE_HOUR_MILLISECONDS, SEVEN_DAYS, USER_EXPIRATION_KEY, USER_SESSION_KEY } from "@/utilities/index";
 import { ensureEnvVar } from "@/utilities/index";
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
-import { Ratelimit } from "@upstash/ratelimit";
+import { createCookieSessionStorage, LoaderFunctionArgs, redirect } from "@remix-run/node";
+import { cacheRateLimitCheck } from "@/cache.server";
 import { type User, getUserById } from "~/models/user.server";
+import { RateLimitExceededError } from "@/utilities/error-handlers";
+
 ensureEnvVar(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
 type CookieContext = {
@@ -32,11 +34,15 @@ type SessionFlashData = {
   error: string;
 };
 
+type CookieHeader = Awaited<ReturnType<typeof sessionStorage.destroySession | typeof sessionStorage.commitSession>>;
 export class CookieExpirationError extends Error {
   constructor({ notAfter }: CookieController) {
     super(`The cookie for this session has expired. Expiration Date: ${notAfter}`);
   }
 }
+// ================================================================
+//
+// ================================================================
 export const setupSessionStorage = (sessionSecret?: string, env?: string) =>
   createCookieSessionStorage<CookieController, SessionFlashData>({
     cookie: { name: "__session", ...defineCookie(sessionSecret, env) },
@@ -60,11 +66,11 @@ export const headerAddressNames = new Set([
   "DO-Connecting-IP" /** Digital ocean app platform */,
   "oxygen-buyer-ip" /** Shopify oxygen platform */,
 ]);
-export const setCookieHeader = (
-  cookieValue: Awaited<ReturnType<typeof sessionStorage.destroySession | typeof sessionStorage.commitSession>>,
-) => ({
+
+export const setCookieHeader = (cookieValue: CookieHeader) => ({
   headers: { "Set-Cookie": cookieValue },
 });
+
 export const getHeaderCookie = ({ headers }: Request) => headers.get("Cookie");
 
 export const getSessionInformation = (request: Request) => sessionStorage.getSession(getHeaderCookie(request));
@@ -78,7 +84,12 @@ const respectRateLimit = () => {};
 
 const cacheStash = ({ userId, notAfter }: CookieController) => redis.hset(userId, { userId, notAfter });
 
-const checkCache = ({ userId, notAfter }: CookieController) => {};
+export const checkCache = async (args: LoaderFunctionArgs) => {
+  const { success } = await cacheRateLimitCheck(args);
+  if (!success) throw new RateLimitExceededError();
+  return true;
+};
+
 export const setSession = async (userId: string, session: SessionController) => {
   const notAfter = new Date(Date.now() + ONE_HOUR_MILLISECONDS);
   await Promise.allSettled([
@@ -121,11 +132,11 @@ export async function getUser(request: Request) {
   throw await logout(request);
 }
 
-export async function requireUserId(request: Request, redirectTo: string = new URL(request.url).pathname) {
-  console.log({ redirectTo, request });
+export async function requireUserId(request: Request, redirectTo?: string) {
+  const url = new URL(request.url).pathname;
   const userId = await getUserId(request);
   if (userId) return userId;
-  throw redirect(`/login?${new URLSearchParams([["redirectTo", redirectTo ?? ""]])}`);
+  throw redirect(`/login?${new URLSearchParams([["redirectTo", (url || redirectTo) ?? ""]])}`);
 }
 
 export async function requireUser(request: Request) {
@@ -136,6 +147,7 @@ export async function requireUser(request: Request) {
 
   throw await logout(request);
 }
+
 export const setUserSession = (session: SessionController) => {};
 
 export async function createUserSession({ request, userId, remember, redirectTo }: SessionAttributes) {

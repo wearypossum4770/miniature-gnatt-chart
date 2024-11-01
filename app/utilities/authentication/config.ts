@@ -1,3 +1,30 @@
+import { MAX_OTP } from "@/utilities/index";
+import { clientSafeInteger } from "@/utilities/authentication/random-integer.client";
+import { serverSafeInteger } from "@/utilities/authentication/random-integer.server";
+
+export const safeNumber = (value: unknown): number => {
+  switch (typeof value) {
+    case "number":
+    case "bigint":
+    case "boolean":
+      return Number(value);
+    case "undefined":
+      return MAX_OTP;
+    default:
+      return MAX_OTP;
+  }
+};
+
+export const safeRandomInteger = async (maximum?: unknown): Promise<number> =>
+  new Promise((success, failure) => {
+    const buffer = new Uint8Array(safeNumber(maximum));
+    if (typeof window === "undefined" && typeof document === "undefined") {
+      return success(serverSafeInteger(buffer));
+    }
+    const int = clientSafeInteger(buffer);
+    return int ? success(int) : failure(int);
+  });
+
 export type HashDriverAlgorithms = "argon2id" | "argon2d" | "argon2i" | "script" | "bcrypt";
 
 export type DatabaseAttribution = {
@@ -55,6 +82,7 @@ export type BaseUser = {
   password: string;
 };
 
+export type PreUserLogin = Partial<AbstractBaseUser>;
 export type UserRegistration = BaseUser &
   AbstractBaseUser &
   DatabaseAttribution & {

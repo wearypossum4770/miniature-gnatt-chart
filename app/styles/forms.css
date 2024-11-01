@@ -2,10 +2,17 @@ div.form-group {
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  box-shadow: 0 10px 20px -8px var(--cool-mint);
+  /* box-shadow: 0 10px 20px -8px var(--cool-mint); */
 }
 div.form-group.half-page {
   width: 50%;
+}
+div.form-group > [id$="help-text"],
+div.form-group > [id$="-error"] {
+  padding: 1rem 0;
+}
+div.form-group > div[data-dom-hidden="true"] {
+  display: none;
 }
 div.form-group > input {
   font-size: 16px;
@@ -13,7 +20,26 @@ div.form-group > input {
   line-height: 24px;
   color: var(--charcoal-black);
 }
-
+form.signup-form > div.form-group > label {
+  margin: 1rem 0;
+}
+form.signup-form > footer {
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
+}
+form.signup-form > footer > a {
+  padding: 0 1rem;
+}
+form.signup-form {
+  color: #fff;
+  padding: 0 1rem;
+}
+form.signup-form > div.form-group {
+  color: #fff;
+}
+form.signup-form > div.form-group > label {
+  font-size: 18px;
+}
 form.create-feature-suggestion-container {
   color: var(--muted-rose);
   border-radius: 6px;

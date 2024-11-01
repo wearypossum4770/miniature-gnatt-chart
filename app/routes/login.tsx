@@ -1,40 +1,42 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
-import { verifyLogin } from "~/models/user.server";
+import { verifyLogin, rejectAuthentication, type LoginFieldError } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect, safeFormData, emailValidation } from "~/utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);
-  return userId ? redirect("/") : json({});
+  return userId ? safeRedirect("/") : json({});
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const redirectTo = safeRedirect(formData.get("redirectTo"));
-  const remember = formData.get("remember");
-
-  if (!validateEmail(email)) {
-    return json({ errors: { email: "Email is invalid", password: null } }, { status: 400 });
+  const email = safeFormData(formData, "email");
+  const password = safeFormData(formData, "password");
+  const redirectTo = safeRedirect(safeFormData(formData, "redirectTo"));
+  const remember = safeFormData(formData, "remember");
+  const errors: LoginFieldError = { email: "", password: "", username: "" };
+  if (!emailValidation(email)) {
+    Object.assign(errors, { email: "Invalid email address" });
+    return errors;
   }
 
   if (typeof password !== "string" || password.length === 0) {
-    return json({ errors: { email: null, password: "Password is required" } }, { status: 400 });
+    Object.assign(errors, { password: "Password is required" });
+    return errors;
   }
 
   if (password.length < 8) {
-    return json({ errors: { email: null, password: "Password is too short" } }, { status: 400 });
+    return json({ errors });
   }
 
   const user = await verifyLogin(email, password);
 
   if (!user) {
-    return json({ errors: { email: "Invalid email or password", password: null } }, { status: 400 });
+    return rejectAuthentication(errors, { loginFailure: true });
   }
 
   return createUserSession({

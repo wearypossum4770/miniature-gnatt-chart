@@ -3,13 +3,21 @@
 /* #2196f3; */
 /*  #00cbca; */
 /*  #C0C9CE; */
+main.root-main:has(:not(.form-page)) > form {
+  grid-template-columns: 255px auto;
+}
 main.root-main {
   display: grid;
+  gap: 2rem;
   height: 100%;
   min-height: 100vh;
   background-color: var(--inky-indigo);
-  grid-template-columns: 255px auto;
-  gap: 2rem;
+}
+
+main.root-main:has(.form-group) > form {
+  grid-template-columns: auto;
+  margin: auto;
+  width: 40%;
 }
 
 div.project-board-index-view {

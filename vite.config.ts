@@ -9,6 +9,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   server: {
     port: 3000,
+    // hmr: { port: 3002, path: 'vite-hmr', },
   },
   html: { cspNonce: randomBytes(32).toString("base64") },
   esbuild: {

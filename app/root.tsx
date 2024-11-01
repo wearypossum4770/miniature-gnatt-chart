@@ -29,7 +29,6 @@ tableStyle,
   rel: "stylesheet", href}))
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  console.log(process.env);
   return json({ ok: true });
 };
 export const meta: MetaFunction = () => [

@@ -33,6 +33,8 @@ WORKDIR /myapp
 
 # Install LiteFS
 # COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+# TURSO 
+# COPY --from=deps /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 COPY package.json bun.lockb .npmrc ./
@@ -63,7 +65,7 @@ ENV NODE_ENV="production"
 RUN printf "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 
 WORKDIR /myapp
-
+# RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nodejs
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
