@@ -13,7 +13,7 @@ LABEL dev.fly.miniature-gnatt-chart-1d51=fullstack
 ENV NODE_ENV production
 
 # Install openssl for Prisma
-RUN RUN touch ~/{.bashrc,.profile,.zshrc} && chmod +x ~/{.bashrc,.profile,.zshrc} && apt-get update && apt-get install -y openssl sqlite3 --no-install-recommends && export NVM_COLORS='cmgRY' && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash &&  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" &&  nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/* 
+RUN RUN touch ~/.bashrc ~/.profile ~/.zshrc && chmod +x ~/.bashrc ~/.profile ~/.zshrc && apt-get update && apt-get install -y openssl sqlite3 --no-install-recommends && export NVM_COLORS='cmgRY' && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash &&  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" &&  nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 
 # Prepare for LiteFS installation
