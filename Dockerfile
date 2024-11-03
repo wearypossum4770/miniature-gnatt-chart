@@ -14,11 +14,8 @@ ENV NODE_ENV production
 
 
 # Install openssl for Prisma
-RUN apt-get install -y openssl\
-    sqlite3 curl --no-install-recommends\
-    && apt-get -y autoclean\
-    && export NVM_COLORS='cmgRY'\
-    && curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN apt-get install -y openssl sqlite3 curl --no-install-recommends && apt-get -y autoclean && export NVM_COLORS='cmgRY'
+RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
 RUN echo  "#!/bin/bash\n" \
     "export NVM_DIR="$HOME/.nvm"\n"\
