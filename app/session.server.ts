@@ -1,12 +1,12 @@
 import { redis } from "@/cache.server";
+import { cacheRateLimitCheck } from "@/cache.server";
 import { defineCookie } from "@/cookie.server";
-import { generateTimestamp, isWithinExpirationDate } from "@/utilities/calendar/config";
+import { isWithinExpirationDate } from "@/utilities/calendar/config";
+import { RateLimitExceededError } from "@/utilities/error-handlers";
 import { ONE_HOUR_MILLISECONDS, SEVEN_DAYS, USER_EXPIRATION_KEY, USER_SESSION_KEY } from "@/utilities/index";
 import { ensureEnvVar } from "@/utilities/index";
-import { createCookieSessionStorage, LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { cacheRateLimitCheck } from "@/cache.server";
+import { type LoaderFunctionArgs, createCookieSessionStorage, redirect } from "@remix-run/node";
 import { type User, getUserById } from "~/models/user.server";
-import { RateLimitExceededError } from "@/utilities/error-handlers";
 
 ensureEnvVar(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 

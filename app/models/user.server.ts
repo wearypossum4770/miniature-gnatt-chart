@@ -3,7 +3,7 @@ import type { Password, User } from "@prisma/client";
 import { prisma } from "~/db.server";
 
 export type { User } from "@prisma/client";
-import type { UserRegistration, PreUserLogin } from "@/utilities/authentication/config";
+import type { PreUserLogin, UserRegistration } from "@/utilities/authentication/config";
 import { hashPassword, verifyPassword } from "@/utilities/password-hashers/argon-hasher";
 
 export type LoginFieldError = {

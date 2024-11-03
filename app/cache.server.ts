@@ -1,6 +1,6 @@
 import { singleton } from "@/singleton.server";
-import { getClientIpAddress, type Analytics } from "@/utilities/analytics/server-actions.server";
-import { ensureEnvVar, HOURLY_MAX_CACHE_CHECK_LIMIT } from "@/utilities/index";
+import { type Analytics, getClientIpAddress } from "@/utilities/analytics/server-actions.server";
+import { HOURLY_MAX_CACHE_CHECK_LIMIT, ensureEnvVar } from "@/utilities/index";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";

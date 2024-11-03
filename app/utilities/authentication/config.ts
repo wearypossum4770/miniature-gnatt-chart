@@ -1,6 +1,6 @@
-import { MAX_OTP } from "@/utilities/index";
 import { clientSafeInteger } from "@/utilities/authentication/random-integer.client";
 import { serverSafeInteger } from "@/utilities/authentication/random-integer.server";
+import { MAX_OTP } from "@/utilities/index";
 
 export const safeNumber = (value: unknown): number => {
   switch (typeof value) {

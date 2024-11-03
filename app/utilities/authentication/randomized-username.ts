@@ -1,6 +1,7 @@
-import { CHALLENGE_LENGTH, USERNAME_LENGTH } from "@/utilities/index";
-import { serverSafeIntegerArray } from "@/utilities/authentication/random-integer.server";
 import { clientSafeIntegerArray } from "@/utilities/authentication/random-integer.client";
+import { serverSafeIntegerArray } from "@/utilities/authentication/random-integer.server";
+import { CHALLENGE_LENGTH, USERNAME_LENGTH } from "@/utilities/index";
+
 // biome-ignore format: the array should not be formatted
 // prettier-ignore
 const cache = String.fromCharCode.apply(

@@ -1,5 +1,5 @@
+import { isDocumentDefined, isUndefined, isWindowDefined } from "@/utilities/validations/assertions";
 import invariant from "tiny-invariant";
-import { isWindowDefined, isUndefined, isDocumentDefined } from "@/utilities/validations/assertions";
 export type ConnectionType =
   | "bluetooth"
   | "cellular"
