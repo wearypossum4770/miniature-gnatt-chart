@@ -184,7 +184,7 @@ export const MAX_AGE = ONE_DAY;
 export const MAX_ALLOWED_COOKIE_TIME = 2_147_483_647_000;
 
 export const NULL_UUID = "00000000-0000-0000-0000-000000000000";
-export const CONTROL_CHARS = /[\x00-\x1F]/u;
+export const CONTROL_CHARS = /[\u{00}-\u{1F}]/u;
 // biome-ignore format: the array should not be formatted
 // prettier-ignore
 export const illegalCharacters = new Set<string>([
