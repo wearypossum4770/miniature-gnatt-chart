@@ -31,6 +31,11 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "suspicious": {
+        "noControlCharactersInRegex": {
+          "level": "off"
+        }
+      },
       "style": {
         "useEnumInitializers": {
           "level": "info",
