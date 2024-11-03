@@ -29,7 +29,7 @@ RUN export NVM_DIR="$HOME/.nvm"  && mkdir -p "$NVM_DIR" && echo  "#!/bin/bash\n 
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
     source $NVM_DIR/nvm.sh && \
     nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
-RUN command -v nvm && command -v node
+
 RUN chmod +x setup-teardown.sh && ./setup-teardown.sh
 
 
