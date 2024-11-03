@@ -17,6 +17,13 @@ ENV NVM_DIR="$HOME/.nvm"
 RUN apt-get update  && apt-get install -y --no-install-recommends  openssl sqlite3 curl && apt-get -y autoclean && export NVM_COLORS='cmgRY'
 RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
+# Prepare for LiteFS installation
+# apt-get install -y ca-certificates fuse3
+# Install all node_modules, including dev dependencies
+FROM base as deps
+
+WORKDIR /myapp
+
 RUN echo  "#!/bin/bash\n \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
@@ -24,13 +31,6 @@ RUN echo  "#!/bin/bash\n \
     nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
 RUN chmod +x setup-teardown.sh && ./setup-teardown.sh
 
-
-# Prepare for LiteFS installation
-# apt-get install -y ca-certificates fuse3
-# Install all node_modules, including dev dependencies
-FROM base as deps
-
-WORKDIR /myapp
 
 COPY package.json bun.lockb .npmrc ./
 RUN bun install --bun --smol
