@@ -11,6 +11,7 @@ FROM oven/bun:canary AS base
 LABEL dev.fly.miniature-gnatt-chart-1d51=fullstack
 # set for base and all layer that inherit from it
 ENV NODE_ENV production
+RUN mkdir -p "$NVM_DIR"
 ENV NVM_DIR="$HOME/.nvm"
 
 # Install openssl for Prisma
@@ -25,7 +26,7 @@ FROM base as deps
 WORKDIR /myapp
 
 
-RUN mkdir -p "$NVM_DIR" && echo  "#!/bin/bash\n \
+RUN echo  "#!/bin/bash\n \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
     source $NVM_DIR/nvm.sh && \
