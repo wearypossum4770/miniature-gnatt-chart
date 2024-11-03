@@ -17,11 +17,12 @@ ENV NODE_ENV production
 RUN apt-get update  && apt-get install -y --no-install-recommends  openssl sqlite3 curl && apt-get -y autoclean && export NVM_COLORS='cmgRY'
 RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
-RUN echo  "#!/bin/bash\n" \
-    "export NVM_DIR="$HOME/.nvm"\n"\
-    "[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n"\
-    "[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n"\ 
-    "nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
+RUN echo  "#!/bin/bash\n \
+    export NVM_DIR="$HOME/.nvm"\n\
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
+    source $NVM_DIR/nvm.sh && \
+    nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
 RUN chmod +x setup-teardown.sh && ./setup-teardown.sh
 
 
