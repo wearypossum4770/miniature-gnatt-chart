@@ -14,8 +14,8 @@ ENV NODE_ENV production
 ENV NVM_DIR="$HOME/.nvm"
 
 # Install openssl for Prisma
-RUN apt-get update  && apt-get install -y --no-install-recommends  openssl sqlite3 curl && apt-get -y autoclean && export NVM_COLORS='cmgRY'
-RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN apt-get update  && apt-get install -y --no-install-recommends  openssl sqlite3 curl  ca-certificates && apt-get -y autoclean && export NVM_COLORS='cmgRY'
+RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash 
 
 # Prepare for LiteFS installation
 # apt-get install -y ca-certificates fuse3
@@ -24,11 +24,13 @@ FROM base as deps
 
 WORKDIR /myapp
 
-RUN echo  "#!/bin/bash\n \
+
+RUN mkdir -p "$NVM_DIR" && echo  "#!/bin/bash\n \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
     source $NVM_DIR/nvm.sh && \
     nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
+RUN command -v nvm && command -v node
 RUN chmod +x setup-teardown.sh && ./setup-teardown.sh
 
 
