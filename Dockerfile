@@ -14,18 +14,18 @@ ENV NODE_ENV production
 
 
 # Install openssl for Prisma
-RUN touch ~/.bashrc ~/.profile ~/.zshrc\
-&& chmod +x ~/.bashrc ~/.profile ~/.zshrc\
-&& apt-get update\
-&& apt-get install -y openssl sqlite3 curl --no-install-recommends\
-&& apt-get -y autoclean \
-&& export NVM_COLORS='cmgRY'\
-&& curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
-&& echo "export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion""\
-echo "source  ~/.bashrc" | bash\
-&& nvm install node\
-&& apt-get clean\
-&& rm -rf /var/lib/apt/lists/* 
+RUN apt-get install -y openssl\
+    sqlite3 curl --no-install-recommends\
+    && apt-get -y autoclean\
+    && export NVM_COLORS='cmgRY'\
+    && curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+RUN echo  "#!/bin/bash\n" \
+    "export NVM_DIR="$HOME/.nvm"\n"\
+    "[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n"\
+    "[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n"\ 
+    "&& nvm install node && apt-get clean && rm -rf /var/lib/apt/lists/*" > setup-teardown.sh
+RUN chmod +x setup-teardown.sh && ./setup-teardown.sh
 
 
 # Prepare for LiteFS installation
