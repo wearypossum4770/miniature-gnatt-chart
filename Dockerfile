@@ -11,14 +11,13 @@ FROM oven/bun:canary AS base
 LABEL dev.fly.miniature-gnatt-chart-1d51=fullstack
 # set for base and all layer that inherit from it
 ENV NODE_ENV production
-
+ENV NVM_DIR="$HOME/.nvm"
 
 # Install openssl for Prisma
 RUN apt-get update  && apt-get install -y --no-install-recommends  openssl sqlite3 curl && apt-get -y autoclean && export NVM_COLORS='cmgRY'
 RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
 RUN echo  "#!/bin/bash\n \
-    export NVM_DIR="$HOME/.nvm"\n\
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\n\ 
     source $NVM_DIR/nvm.sh && \
